@@ -1,0 +1,42 @@
+{
+  "original_url": "https://instagram-clone-ruby-ten.vercel.app",
+  "final_url": "https://instagram-clone-ruby-ten.vercel.app/",
+  "risk_score": 85,
+  "verdict": "malicious",
+  "details": {
+    "ssl": {
+      "present": true,
+      "expired": null,
+      "not_yet_valid": null,
+      "self_signed": null,
+      "not_before": "Oct 25 22:29:14 2025 GMT",
+      "not_after": "Jan 23 22:29:13 2026 GMT",
+      "error": null
+    },
+    "virustotal": {
+      "vt_positives": 10,
+      "vt_total": 98
+    },
+    "opentip": {
+      "raw_flags": [
+        "malicious_or_phishing"
+      ]
+    },
+    "tld": {
+      "tld": "app",
+      "suspicious_tld": false
+    },
+    "brand_abuse_subscore": 0,
+    "brand_abuse_flags": [],
+    "html": {
+      "has_password_input": false,
+      "has_login_keywords": false,
+      "has_payment_keywords": false,
+      "suspicious_context": true
+    },
+    "network": {
+      "total_requests": 0,
+      "third_party_hosts": []
+    }
+  }
+}

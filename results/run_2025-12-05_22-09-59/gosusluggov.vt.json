@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "source": "virustotal",
+  "url": "https://gosusluggov.ru/",
+  "raw": {
+    "resource": "https://gosusluggov.ru/",
+    "response_code": 0,
+    "verbose_msg": "Resource does not exist in the dataset"
+  }
+}

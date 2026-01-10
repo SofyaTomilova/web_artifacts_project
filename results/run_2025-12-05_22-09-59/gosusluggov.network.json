@@ -1,0 +1,362 @@
+[
+  {
+    "message": {
+      "method": "Page.frameStartedNavigating",
+      "params": {
+        "frameId": "48FAA1BD5EBED160AD3451BB350AD56B",
+        "loaderId": "504719EE18DB593C07CB7D697B272DFA",
+        "navigationType": "differentDocument",
+        "url": "https://gosusluggov.ru/"
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Page.frameStartedLoading",
+      "params": {
+        "frameId": "48FAA1BD5EBED160AD3451BB350AD56B"
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "https://gosusluggov.ru/",
+        "frameId": "48FAA1BD5EBED160AD3451BB350AD56B",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "504719EE18DB593C07CB7D697B272DFA",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "https://gosusluggov.ru/"
+        },
+        "requestId": "504719EE18DB593C07CB7D697B272DFA",
+        "timestamp": 48927.005487,
+        "type": "Document",
+        "wallTime": 1764961800.402858
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Page.frameResized",
+      "params": {}
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFailed",
+      "params": {
+        "canceled": false,
+        "errorText": "net::ERR_CERT_AUTHORITY_INVALID",
+        "requestId": "504719EE18DB593C07CB7D697B272DFA",
+        "timestamp": 48927.145443,
+        "type": "Document"
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Page.frameNavigated",
+      "params": {
+        "frame": {
+          "adFrameStatus": {
+            "adFrameType": "none"
+          },
+          "crossOriginIsolatedContextType": "NotIsolated",
+          "domainAndRegistry": "",
+          "gatedAPIFeatures": [],
+          "id": "48FAA1BD5EBED160AD3451BB350AD56B",
+          "loaderId": "504719EE18DB593C07CB7D697B272DFA",
+          "mimeType": "text/html",
+          "secureContextType": "InsecureScheme",
+          "securityOrigin": "://",
+          "securityOriginDetails": {
+            "isLocalhost": false
+          },
+          "unreachableUrl": "https://gosusluggov.ru/",
+          "url": "chrome-error://chromewebdata/"
+        },
+        "type": "Navigation"
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.policyUpdated",
+      "params": {}
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.dataReceived",
+      "params": {
+        "dataLength": 126830,
+        "encodedDataLength": 0,
+        "requestId": "504719EE18DB593C07CB7D697B272DFA",
+        "timestamp": 48927.234034
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFinished",
+      "params": {
+        "encodedDataLength": 126830,
+        "requestId": "504719EE18DB593C07CB7D697B272DFA",
+        "timestamp": 48927.234151
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Page.domContentEventFired",
+      "params": {
+        "timestamp": 48927.236605
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "chrome-error://chromewebdata/",
+        "frameId": "48FAA1BD5EBED160AD3451BB350AD56B",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 3290,
+          "lineNumber": 1152,
+          "type": "parser",
+          "url": "chrome-error://chromewebdata/"
+        },
+        "loaderId": "504719EE18DB593C07CB7D697B272DFA",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Referer": "",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+          },
+          "initialPriority": "Low",
+          "isSameSite": false,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAMAAABiM0N1AAABAlBMVEUAAADcRTfcRDfdRET/gIDcRjr/ZmbjVTncRDfcRTfcRDfdRDzgSTncRDjeSDvcRTjbRDfbRDjeRzvcRjfbRjjcRTjcRTjcRTfdRTfcRDjdRTjcRTjbRDjbRTjbRTjbRTfcRjjdRDrcRjfbRTjZQzfcRDjZRDfZRzbWQzXXRDXXQzbXQzbWQjXYSDvWQjbbRDfOQDPSQTTUQjXCPDDNPzPJPjLGPTHVQjXMPzPRQTTWQjXLPzPDPDHYQzbAOzDTQTXHPTLIPjK8Oi++Oy/FPTHEPTHPQDTQQDTUQTXBPDDKPjK/OzC9Oi/////PQDPRQDS3OS66OS7TQTTEPDHXQjbMPjMBhLaWAAAAL3RSTlMA4tgPAhYFCcL98B4x9ie1+s49WICbqXNKZY3pjuqcgVdLZnL2qKg9zmXpjfontV8LANsAAAJrSURBVHhe7ZTnduIwFAY3ARIgBAg9vW1v173ROylby/u/yso2Fx3MNaxs9h/zAHM+Sfa8+M/s2LFjx+3tdjwH+/sHWxHVAerb8KSyANnUFkRXwLiK78llgJHJxRalwSMd11OGOeV4nsM9FO0dxhJdw4LrOJ6jYy46PoohqgEHatE9JViiFNWTPIElTpIRRXcQ4C6aJ3EJAS4TkUQXsMJFFE++CCsU8xFEBSAoiHsaQNIQ7yuQCFe3DiHUhftKIlzdKoRSFe0r8sXDAkSoumkIigYaIOkIfeWi56EESFm8r1w0fFIl4epWgBA9qOMpmirCfeWijtoa9WSx6taAELFBRl/vilS3BJRIbRk9/VFTsLrifUXRuNfXLU0y/7m6p0CKxqN+v6lJU/k3eJxu7Os5LWKDHi1tYstKG1zON1X3DGiRMR80Mx3fdCbc1+bQe3o2SJrYXcV0fFMxL9xXiz0987BBtux65qaCeF8lHCR3FabBTQ3xvk4M1yN5B/Mw2+urew8hTP1BM38Qnu5evK8gMw+7IcfH9E3ZlEBfMSO//Kf35+Cm6ua+rhbSYDeEa9CUyW3qK1HIjj5DBz8dWd0bWCd6Ult/uMPEr+BmbV/JHrVG/a9MsEybV5fsK50R3frmBFXtCtVXmt73H4PhQ4t9k9rkJ55tYXwZrO4rCEUfPHfUEcuaZC/umw97TfaVpslu2tCb2lRWnBlKFtf+huwrjaa6Pxv7RfgW7nubJPtKI/X0puQO4k/Pfe/ovtLY7KbxVwve0/sE3VeaLosIbkEDvt8Hoq/hKGwQYvoq5OMnoq/hLAbgc/FVn33PX7pAfE5QHR6fAAAAAElFTkSuQmCC"
+        },
+        "requestId": "16902.2",
+        "timestamp": 48927.236956,
+        "type": "Image",
+        "wallTime": 1764961800.634334
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.requestServedFromCache",
+      "params": {
+        "requestId": "16902.2"
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "48FAA1BD5EBED160AD3451BB350AD56B",
+        "hasExtraInfo": false,
+        "loaderId": "504719EE18DB593C07CB7D697B272DFA",
+        "requestId": "16902.2",
+        "response": {
+          "charset": "",
+          "connectionId": 0,
+          "connectionReused": false,
+          "encodedDataLength": 0,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Type": "image/png"
+          },
+          "isIpProtectionUsed": false,
+          "mimeType": "image/png",
+          "protocol": "data",
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAMAAABiM0N1AAABAlBMVEUAAADcRTfcRDfdRET/gIDcRjr/ZmbjVTncRDfcRTfcRDfdRDzgSTncRDjeSDvcRTjbRDfbRDjeRzvcRjfbRjjcRTjcRTjcRTfdRTfcRDjdRTjcRTjbRDjbRTjbRTjbRTfcRjjdRDrcRjfbRTjZQzfcRDjZRDfZRzbWQzXXRDXXQzbXQzbWQjXYSDvWQjbbRDfOQDPSQTTUQjXCPDDNPzPJPjLGPTHVQjXMPzPRQTTWQjXLPzPDPDHYQzbAOzDTQTXHPTLIPjK8Oi++Oy/FPTHEPTHPQDTQQDTUQTXBPDDKPjK/OzC9Oi/////PQDPRQDS3OS66OS7TQTTEPDHXQjbMPjMBhLaWAAAAL3RSTlMA4tgPAhYFCcL98B4x9ie1+s49WICbqXNKZY3pjuqcgVdLZnL2qKg9zmXpjfontV8LANsAAAJrSURBVHhe7ZTnduIwFAY3ARIgBAg9vW1v173ROylby/u/yso2Fx3MNaxs9h/zAHM+Sfa8+M/s2LFjx+3tdjwH+/sHWxHVAerb8KSyANnUFkRXwLiK78llgJHJxRalwSMd11OGOeV4nsM9FO0dxhJdw4LrOJ6jYy46PoohqgEHatE9JViiFNWTPIElTpIRRXcQ4C6aJ3EJAS4TkUQXsMJFFE++CCsU8xFEBSAoiHsaQNIQ7yuQCFe3DiHUhftKIlzdKoRSFe0r8sXDAkSoumkIigYaIOkIfeWi56EESFm8r1w0fFIl4epWgBA9qOMpmirCfeWijtoa9WSx6taAELFBRl/vilS3BJRIbRk9/VFTsLrifUXRuNfXLU0y/7m6p0CKxqN+v6lJU/k3eJxu7Os5LWKDHi1tYstKG1zON1X3DGiRMR80Mx3fdCbc1+bQe3o2SJrYXcV0fFMxL9xXiz0987BBtux65qaCeF8lHCR3FabBTQ3xvk4M1yN5B/Mw2+urew8hTP1BM38Qnu5evK8gMw+7IcfH9E3ZlEBfMSO//Kf35+Cm6ua+rhbSYDeEa9CUyW3qK1HIjj5DBz8dWd0bWCd6Ult/uMPEr+BmbV/JHrVG/a9MsEybV5fsK50R3frmBFXtCtVXmt73H4PhQ4t9k9rkJ55tYXwZrO4rCEUfPHfUEcuaZC/umw97TfaVpslu2tCb2lRWnBlKFtf+huwrjaa6Pxv7RfgW7nubJPtKI/X0puQO4k/Pfe/ovtLY7KbxVwve0/sE3VeaLosIbkEDvt8Hoq/hKGwQYvoq5OMnoq/hLAbgc/FVn33PX7pAfE5QHR6fAAAAAElFTkSuQmCC"
+        },
+        "timestamp": 48927.236984,
+        "type": "Image"
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.dataReceived",
+      "params": {
+        "dataLength": 1005,
+        "encodedDataLength": 0,
+        "requestId": "16902.2",
+        "timestamp": 48927.236987
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFinished",
+      "params": {
+        "encodedDataLength": 0,
+        "requestId": "16902.2",
+        "timestamp": 48927.236987
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "chrome-error://chromewebdata/",
+        "frameId": "48FAA1BD5EBED160AD3451BB350AD56B",
+        "hasUserGesture": false,
+        "initiator": {
+          "columnNumber": 3290,
+          "lineNumber": 1152,
+          "type": "parser",
+          "url": "chrome-error://chromewebdata/"
+        },
+        "loaderId": "504719EE18DB593C07CB7D697B272DFA",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Referer": "",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+          },
+          "initialPriority": "Low",
+          "isSameSite": false,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzY5Njk2OSI+PHBhdGggZD0iTTkgMjFjMCAuNTUuNDUgMSAxIDFoNGMuNTUgMCAxLS40NSAxLTF2LTFIOXYxem0zLTE5QzguMTQgMiA1IDUuMTQgNSA5YzAgMi4zOCAxLjE5IDQuNDcgMyA1Ljc0VjE3YzAgLjU1LjQ1IDEgMSAxaDZjLjU1IDAgMS0uNDUgMS0xdi0yLjI2YzEuODEtMS4yNyAzLTMuMzYgMy01Ljc0IDAtMy44Ni0zLjE0LTctNy03em0yLjg1IDExLjEtLjg1LjZWMTZoLTR2LTIuM2wtLjg1LS42QTQuOTk3IDQuOTk3IDAgMCAxIDcgOWMwLTIuNzYgMi4yNC01IDUtNXM1IDIuMjQgNSA1YzAgMS42My0uOCAzLjE2LTIuMTUgNC4xeiIvPjwvc3ZnPg=="
+        },
+        "requestId": "16902.3",
+        "timestamp": 48927.237555,
+        "type": "Image",
+        "wallTime": 1764961800.634922
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.requestServedFromCache",
+      "params": {
+        "requestId": "16902.3"
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "48FAA1BD5EBED160AD3451BB350AD56B",
+        "hasExtraInfo": false,
+        "loaderId": "504719EE18DB593C07CB7D697B272DFA",
+        "requestId": "16902.3",
+        "response": {
+          "charset": "",
+          "connectionId": 0,
+          "connectionReused": false,
+          "encodedDataLength": 0,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "Content-Type": "image/svg+xml"
+          },
+          "isIpProtectionUsed": false,
+          "mimeType": "image/svg+xml",
+          "protocol": "data",
+          "securityState": "unknown",
+          "status": 200,
+          "statusText": "OK",
+          "url": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzY5Njk2OSI+PHBhdGggZD0iTTkgMjFjMCAuNTUuNDUgMSAxIDFoNGMuNTUgMCAxLS40NSAxLTF2LTFIOXYxem0zLTE5QzguMTQgMiA1IDUuMTQgNSA5YzAgMi4zOCAxLjE5IDQuNDcgMyA1Ljc0VjE3YzAgLjU1LjQ1IDEgMSAxaDZjLjU1IDAgMS0uNDUgMS0xdi0yLjI2YzEuODEtMS4yNyAzLTMuMzYgMy01Ljc0IDAtMy44Ni0zLjE0LTctNy03em0yLjg1IDExLjEtLjg1LjZWMTZoLTR2LTIuM2wtLjg1LS42QTQuOTk3IDQuOTk3IDAgMCAxIDcgOWMwLTIuNzYgMi4yNC01IDUtNXM1IDIuMjQgNSA1YzAgMS42My0uOCAzLjE2LTIuMTUgNC4xeiIvPjwvc3ZnPg=="
+        },
+        "timestamp": 48927.237566,
+        "type": "Image"
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.dataReceived",
+      "params": {
+        "dataLength": 385,
+        "encodedDataLength": 0,
+        "requestId": "16902.3",
+        "timestamp": 48927.237568
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFinished",
+      "params": {
+        "encodedDataLength": 0,
+        "requestId": "16902.3",
+        "timestamp": 48927.237569
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Page.loadEventFired",
+      "params": {
+        "timestamp": 48927.242158
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  },
+  {
+    "message": {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "48FAA1BD5EBED160AD3451BB350AD56B"
+      }
+    },
+    "webview": "48FAA1BD5EBED160AD3451BB350AD56B"
+  }
+]

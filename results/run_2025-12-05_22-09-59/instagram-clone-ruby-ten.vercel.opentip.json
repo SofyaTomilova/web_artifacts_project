@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "source": "opentip",
+  "domain": "instagram-clone-ruby-ten.vercel.app",
+  "raw": {
+    "Zone": "Red",
+    "DomainGeneralInfo": {
+      "Domain": "instagram-clone-ruby-ten.vercel.app",
+      "Ipv4Count": 8,
+      "Categories": [
+        "CATEGORY_PHISHING"
+      ],
+      "CategoriesWithZone": [
+        {
+          "Name": "CATEGORY_PHISHING",
+          "Zone": "Red"
+        }
+      ]
+    },
+    "DomainWhoIsInfo": {
+      "DomainName": "vercel.app",
+      "Created": "2020-01-27T21:00:00Z",
+      "Updated": "2025-10-08T21:00:00Z",
+      "Expires": "2026-01-27T21:00:00Z",
+      "NameServers": [
+        "ns1.vercel-dns-3.com",
+        "ns2.vercel-dns-3.com",
+        "ns3.vercel-dns-3.com",
+        "ns4.vercel-dns-3.com"
+      ],
+      "Registrar": {
+        "Info": "Tucows Domains Inc",
+        "IanaId": "69"
+      },
+      "DomainStatus": [
+        "client transfer prohibited",
+        "client update prohibited"
+      ]
+    }
+  }
+}

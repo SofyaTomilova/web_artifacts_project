@@ -1,0 +1,40 @@
+{
+  "original_url": "https://gosusluggov.ru",
+  "final_url": "https://gosusluggov.ru/",
+  "risk_score": 40,
+  "verdict": "suspicious",
+  "details": {
+    "ssl": {
+      "present": false,
+      "expired": null,
+      "not_yet_valid": null,
+      "self_signed": null,
+      "not_before": null,
+      "not_after": null,
+      "error": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate (_ssl.c:1129)"
+    },
+    "virustotal": {
+      "vt_positives": null,
+      "vt_total": null
+    },
+    "opentip": {
+      "raw_flags": []
+    },
+    "tld": {
+      "tld": "ru",
+      "suspicious_tld": false
+    },
+    "brand_abuse_subscore": 0,
+    "brand_abuse_flags": [],
+    "html": {
+      "has_password_input": false,
+      "has_login_keywords": false,
+      "has_payment_keywords": false,
+      "suspicious_context": false
+    },
+    "network": {
+      "total_requests": 0,
+      "third_party_hosts": []
+    }
+  }
+}
