@@ -1,0 +1,42 @@
+{
+  "original_url": "https://sberbank.ru",
+  "final_url": "https://sberbank.ru/",
+  "risk_score": 0,
+  "verdict": "legitimate",
+  "details": {
+    "ssl": {
+      "present": true,
+      "expired": null,
+      "not_yet_valid": null,
+      "self_signed": null,
+      "hostname_mismatch": null,
+      "short_validity": null,
+      "not_before": "Apr  9 22:11:34 2025 GMT",
+      "not_after": "Apr  9 22:11:34 2026 GMT",
+      "error": null
+    },
+    "virustotal": {
+      "vt_positives": null,
+      "vt_total": null
+    },
+    "opentip": {
+      "raw_flags": []
+    },
+    "tld": {
+      "tld": "ru",
+      "suspicious_tld": false
+    },
+    "brand_abuse_subscore": 0,
+    "brand_abuse_flags": [],
+    "html": {
+      "has_password_input": false,
+      "has_login_keywords": false,
+      "has_payment_keywords": false,
+      "suspicious_context": false
+    },
+    "network": {
+      "total_requests": 0,
+      "third_party_hosts": []
+    }
+  }
+}

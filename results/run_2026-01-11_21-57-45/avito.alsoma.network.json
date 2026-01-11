@@ -1,0 +1,572 @@
+[
+  {
+    "message": {
+      "method": "Network.policyUpdated",
+      "params": {}
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFinished",
+      "params": {
+        "encodedDataLength": 0,
+        "requestId": "01E65C69E5E83AB88AF5807A6AA1FF25",
+        "timestamp": 49890.835689
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Page.domContentEventFired",
+      "params": {
+        "timestamp": 49890.901849
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Page.loadEventFired",
+      "params": {
+        "timestamp": 49890.902288
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "50533CA510BC66BB067D6B13ED9DDFF8"
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Page.frameStartedNavigating",
+      "params": {
+        "frameId": "50533CA510BC66BB067D6B13ED9DDFF8",
+        "loaderId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "navigationType": "differentDocument",
+        "url": "https://avito.alsoma.com/"
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Page.frameStartedLoading",
+      "params": {
+        "frameId": "50533CA510BC66BB067D6B13ED9DDFF8"
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "https://avito.alsoma.com/",
+        "frameId": "50533CA510BC66BB067D6B13ED9DDFF8",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "https://avito.alsoma.com/"
+        },
+        "requestId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "timestamp": 49890.914389,
+        "type": "Document",
+        "wallTime": 1768157867.080467
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSentExtraInfo",
+      "params": {
+        "associatedCookies": [],
+        "connectTiming": {
+          "requestTime": 49890.914849
+        },
+        "headers": {
+          ":authority": "avito.alsoma.com",
+          ":method": "GET",
+          ":path": "/",
+          ":scheme": "https",
+          "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+          "accept-encoding": "gzip, deflate, br, zstd",
+          "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+          "priority": "u=0, i",
+          "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\"",
+          "sec-fetch-dest": "document",
+          "sec-fetch-mode": "navigate",
+          "sec-fetch-site": "none",
+          "sec-fetch-user": "?1",
+          "upgrade-insecure-requests": "1",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+        },
+        "requestId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "siteHasCookieInOtherPartition": false
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceivedExtraInfo",
+      "params": {
+        "blockedCookies": [],
+        "cookiePartitionKey": {
+          "hasCrossSiteAncestor": false,
+          "topLevelSite": "https://alsoma.com"
+        },
+        "cookiePartitionKeyOpaque": false,
+        "exemptedCookies": [],
+        "headers": {
+          "alt-svc": "h3=\":8443\"; ma=2592000",
+          "content-length": "19",
+          "content-type": "text/html; charset=UTF-8",
+          "date": "Sun, 11 Jan 2026 18:57:48 GMT",
+          "status": "451 Unavailable For Legal Reasons",
+          "via": "1.1 Caddy\n0.0 Caddy",
+          "x-blocked": "Legal reason",
+          "x-domain": "alsoma.com",
+          "x-subdomain": "avito"
+        },
+        "requestId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "resourceIPAddressSpace": "Public",
+        "statusCode": 451
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "50533CA510BC66BB067D6B13ED9DDFF8",
+        "hasExtraInfo": true,
+        "loaderId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "requestId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "utf-8",
+          "connectionId": 92,
+          "connectionReused": false,
+          "encodedDataLength": 190,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "alt-svc": "h3=\":8443\"; ma=2592000",
+            "content-length": "19",
+            "content-type": "text/html; charset=UTF-8",
+            "date": "Sun, 11 Jan 2026 18:57:48 GMT",
+            "status": "451 Unavailable For Legal Reasons",
+            "via": "1.1 Caddy\n0.0 Caddy",
+            "x-blocked": "Legal reason",
+            "x-domain": "alsoma.com",
+            "x-subdomain": "avito"
+          },
+          "isIpProtectionUsed": false,
+          "mimeType": "text/html",
+          "protocol": "h2",
+          "remoteIPAddress": "185.53.178.99",
+          "remotePort": 443,
+          "responseTime": 1768157868812.166,
+          "securityDetails": {
+            "certificateId": 0,
+            "certificateTransparencyCompliance": "compliant",
+            "cipher": "AES_128_GCM",
+            "encryptedClientHello": false,
+            "issuer": "R13",
+            "keyExchange": "",
+            "keyExchangeGroup": "X25519MLKEM768",
+            "protocol": "TLS 1.3",
+            "sanList": [
+              "avito.alsoma.com"
+            ],
+            "serverSignatureAlgorithm": 2052,
+            "signedCertificateTimestampList": [
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Cloudflare 'Nimbus2026'",
+                "logId": "CB38F715897C84A1445F5BC1DDFBC96EF29A59CD470A690585B0CB14C31458E7",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "3045022100D0047D2F7C7DE1EC25CB0746FE2C98F17D180B15FFB4357D2764B3626665907002204A110B15AC3DDEDEBC397AF4B5C1ED8ADCD395493FC972F10462C722AB1224A3",
+                "status": "Verified",
+                "timestamp": 1764761150794.0
+              },
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Let's Encrypt 'Willow2026h1'",
+                "logId": "E3238DF28DA288E0AAE0ACF0FA90C985F0B6BFF5D2A527B001FC1C4458C4B6E8",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "3046022100A4D2C51E164D4B4FA7CF6FED53F4AF195442CBBD8F24A4961D2DCBF281B083CE022100EDE826DEFC8097ED8E45722A1F6C34E8BF44C79129357E6C7397FB687EE6F6AD",
+                "status": "Verified",
+                "timestamp": 1764761151524.0
+              }
+            ],
+            "subjectName": "avito.alsoma.com",
+            "validFrom": 1764757640,
+            "validTo": 1772533639
+          },
+          "securityState": "secure",
+          "status": 451,
+          "statusText": "",
+          "timing": {
+            "connectEnd": 1655.317,
+            "connectStart": 193.989,
+            "dnsEnd": 65.5,
+            "dnsStart": 0,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 1731.292,
+            "receiveHeadersStart": 1731.213,
+            "requestTime": 49890.914849,
+            "sendEnd": 1655.402,
+            "sendStart": 1655.358,
+            "sslEnd": 1655.314,
+            "sslStart": 254.42,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "https://avito.alsoma.com/"
+        },
+        "timestamp": 49892.646439,
+        "type": "Document"
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Page.frameNavigated",
+      "params": {
+        "frame": {
+          "adFrameStatus": {
+            "adFrameType": "none"
+          },
+          "crossOriginIsolatedContextType": "NotIsolated",
+          "domainAndRegistry": "alsoma.com",
+          "gatedAPIFeatures": [],
+          "id": "50533CA510BC66BB067D6B13ED9DDFF8",
+          "loaderId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+          "mimeType": "text/html",
+          "secureContextType": "Secure",
+          "securityOrigin": "https://avito.alsoma.com",
+          "securityOriginDetails": {
+            "isLocalhost": false
+          },
+          "url": "https://avito.alsoma.com/"
+        },
+        "type": "Navigation"
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.policyUpdated",
+      "params": {}
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.dataReceived",
+      "params": {
+        "dataLength": 19,
+        "encodedDataLength": 0,
+        "requestId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "timestamp": 49892.647665
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFinished",
+      "params": {
+        "encodedDataLength": 218,
+        "requestId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "timestamp": 49892.646319
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Page.domContentEventFired",
+      "params": {
+        "timestamp": 49892.649418
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Page.loadEventFired",
+      "params": {
+        "timestamp": 49892.649592
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "50533CA510BC66BB067D6B13ED9DDFF8"
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "https://avito.alsoma.com/",
+        "frameId": "50533CA510BC66BB067D6B13ED9DDFF8",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Referer": "https://avito.alsoma.com/",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "https://avito.alsoma.com/favicon.ico"
+        },
+        "requestId": "14248.2",
+        "timestamp": 49892.654468,
+        "type": "Other",
+        "wallTime": 1768157868.820584
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSentExtraInfo",
+      "params": {
+        "associatedCookies": [],
+        "clientSecurityState": {
+          "initiatorIPAddressSpace": "Public",
+          "initiatorIsSecureContext": true,
+          "privateNetworkRequestPolicy": "PermissionBlock"
+        },
+        "connectTiming": {
+          "requestTime": 49892.655177
+        },
+        "headers": {
+          ":authority": "avito.alsoma.com",
+          ":method": "GET",
+          ":path": "/favicon.ico",
+          ":scheme": "https",
+          "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+          "accept-encoding": "gzip, deflate, br, zstd",
+          "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+          "priority": "u=1, i",
+          "referer": "https://avito.alsoma.com/",
+          "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\"",
+          "sec-fetch-dest": "image",
+          "sec-fetch-mode": "no-cors",
+          "sec-fetch-site": "same-origin",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+        },
+        "requestId": "14248.2",
+        "siteHasCookieInOtherPartition": false
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceivedExtraInfo",
+      "params": {
+        "blockedCookies": [],
+        "cookiePartitionKey": {
+          "hasCrossSiteAncestor": false,
+          "topLevelSite": "https://alsoma.com"
+        },
+        "cookiePartitionKeyOpaque": false,
+        "exemptedCookies": [],
+        "headers": {
+          "accept-ranges": "bytes",
+          "alt-svc": "h3=\":8443\"; ma=2592000",
+          "content-length": "0",
+          "content-type": "image/vnd.microsoft.icon",
+          "date": "Sun, 11 Jan 2026 18:57:48 GMT",
+          "etag": "\"dce8vhp7bqsy0\"",
+          "last-modified": "Thu, 28 Aug 2025 17:42:07 GMT",
+          "server": "Caddy",
+          "vary": "Accept-Encoding",
+          "via": "1.1 Caddy"
+        },
+        "requestId": "14248.2",
+        "resourceIPAddressSpace": "Public",
+        "statusCode": 200
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "50533CA510BC66BB067D6B13ED9DDFF8",
+        "hasExtraInfo": true,
+        "loaderId": "6AE1BFA97A0B31BEBB55CA7FEB87A0A5",
+        "requestId": "14248.2",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 92,
+          "connectionReused": true,
+          "encodedDataLength": 99,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "accept-ranges": "bytes",
+            "alt-svc": "h3=\":8443\"; ma=2592000",
+            "content-length": "0",
+            "content-type": "image/vnd.microsoft.icon",
+            "date": "Sun, 11 Jan 2026 18:57:48 GMT",
+            "etag": "\"dce8vhp7bqsy0\"",
+            "last-modified": "Thu, 28 Aug 2025 17:42:07 GMT",
+            "server": "Caddy",
+            "vary": "Accept-Encoding",
+            "via": "1.1 Caddy"
+          },
+          "isIpProtectionUsed": false,
+          "mimeType": "image/vnd.microsoft.icon",
+          "protocol": "h2",
+          "remoteIPAddress": "185.53.178.99",
+          "remotePort": 443,
+          "responseTime": 1768157868883.964,
+          "securityDetails": {
+            "certificateId": 0,
+            "certificateTransparencyCompliance": "compliant",
+            "cipher": "AES_128_GCM",
+            "encryptedClientHello": false,
+            "issuer": "R13",
+            "keyExchange": "",
+            "keyExchangeGroup": "X25519MLKEM768",
+            "protocol": "TLS 1.3",
+            "sanList": [
+              "avito.alsoma.com"
+            ],
+            "serverSignatureAlgorithm": 2052,
+            "signedCertificateTimestampList": [
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Cloudflare 'Nimbus2026'",
+                "logId": "CB38F715897C84A1445F5BC1DDFBC96EF29A59CD470A690585B0CB14C31458E7",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "3045022100D0047D2F7C7DE1EC25CB0746FE2C98F17D180B15FFB4357D2764B3626665907002204A110B15AC3DDEDEBC397AF4B5C1ED8ADCD395493FC972F10462C722AB1224A3",
+                "status": "Verified",
+                "timestamp": 1764761150794.0
+              },
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Let's Encrypt 'Willow2026h1'",
+                "logId": "E3238DF28DA288E0AAE0ACF0FA90C985F0B6BFF5D2A527B001FC1C4458C4B6E8",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "3046022100A4D2C51E164D4B4FA7CF6FED53F4AF195442CBBD8F24A4961D2DCBF281B083CE022100EDE826DEFC8097ED8E45722A1F6C34E8BF44C79129357E6C7397FB687EE6F6AD",
+                "status": "Verified",
+                "timestamp": 1764761151524.0
+              }
+            ],
+            "subjectName": "avito.alsoma.com",
+            "validFrom": 1764757640,
+            "validTo": 1772533639
+          },
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "",
+          "timing": {
+            "connectEnd": -1,
+            "connectStart": -1,
+            "dnsEnd": -1,
+            "dnsStart": -1,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 62.775,
+            "receiveHeadersStart": 62.696,
+            "requestTime": 49892.655177,
+            "sendEnd": 0.331,
+            "sendStart": 0.252,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "https://avito.alsoma.com/favicon.ico"
+        },
+        "timestamp": 49892.718325,
+        "type": "Other"
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFinished",
+      "params": {
+        "encodedDataLength": 99,
+        "requestId": "14248.2",
+        "timestamp": 49892.71812
+      }
+    },
+    "webview": "50533CA510BC66BB067D6B13ED9DDFF8"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "subject": {
+    "commonName": "avito.alsoma.com"
+  },
+  "issuer": {
+    "countryName": "US",
+    "organizationName": "Let's Encrypt",
+    "commonName": "R13"
+  },
+  "version": 3,
+  "serialNumber": "060F665101A56034B7DAD61F97BDDE5AEA8D",
+  "notBefore": "Dec  3 10:27:20 2025 GMT",
+  "notAfter": "Mar  3 10:27:19 2026 GMT",
+  "subjectAltName": [
+    "avito.alsoma.com"
+  ],
+  "certificate_cn": "avito.alsoma.com",
+  "hostname": "avito.alsoma.com",
+  "hostname_mismatch": false
+}

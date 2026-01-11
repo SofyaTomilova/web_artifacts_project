@@ -1,0 +1,23 @@
+{
+  "subject": {
+    "commonName": "sberbank.ru"
+  },
+  "issuer": {
+    "countryName": "GR",
+    "organizationName": "Hellenic Academic and Research Institutions CA",
+    "commonName": "HARICA DV TLS RSA"
+  },
+  "version": 3,
+  "serialNumber": "3C08EAFA5056E5ECE276E392B81DA5ED",
+  "notBefore": "Apr  9 22:11:34 2025 GMT",
+  "notAfter": "Apr  9 22:11:34 2026 GMT",
+  "subjectAltName": [
+    "sberbank.ru",
+    "www.sberbank.ru",
+    "sbrf.ru",
+    "www.sbrf.ru"
+  ],
+  "certificate_cn": "sberbank.ru",
+  "hostname": "sberbank.ru",
+  "hostname_mismatch": false
+}

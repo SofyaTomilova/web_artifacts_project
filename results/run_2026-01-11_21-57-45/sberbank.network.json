@@ -1,0 +1,1186 @@
+[
+  {
+    "message": {
+      "method": "Page.frameStartedNavigating",
+      "params": {
+        "frameId": "14047A4DE843A198D3B51FB40D458B34",
+        "loaderId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "navigationType": "differentDocument",
+        "url": "https://sberbank.ru/"
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Page.frameStartedLoading",
+      "params": {
+        "frameId": "14047A4DE843A198D3B51FB40D458B34"
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "https://sberbank.ru/",
+        "frameId": "14047A4DE843A198D3B51FB40D458B34",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\""
+          },
+          "initialPriority": "VeryHigh",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "https://sberbank.ru/"
+        },
+        "requestId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "timestamp": 49890.323644,
+        "type": "Document",
+        "wallTime": 1768157866.489719
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Page.frameResized",
+      "params": {}
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSentExtraInfo",
+      "params": {
+        "associatedCookies": [],
+        "connectTiming": {
+          "requestTime": 49890.32407
+        },
+        "headers": {
+          ":authority": "sberbank.ru",
+          ":method": "GET",
+          ":path": "/",
+          ":scheme": "https",
+          "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+          "accept-encoding": "gzip, deflate, br, zstd",
+          "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+          "priority": "u=0, i",
+          "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\"",
+          "sec-fetch-dest": "document",
+          "sec-fetch-mode": "navigate",
+          "sec-fetch-site": "none",
+          "sec-fetch-user": "?1",
+          "upgrade-insecure-requests": "1",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+        },
+        "requestId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "siteHasCookieInOtherPartition": false
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceivedExtraInfo",
+      "params": {
+        "blockedCookies": [],
+        "cookiePartitionKey": {
+          "hasCrossSiteAncestor": false,
+          "topLevelSite": "https://sberbank.ru"
+        },
+        "cookiePartitionKeyOpaque": false,
+        "exemptedCookies": [],
+        "headers": {
+          "cache-control": "no-store, must-revalidate, no-cache",
+          "content-encoding": "gzip",
+          "content-length": "1086",
+          "content-type": "text/html; charset=utf-8\ntext/html",
+          "pragma": "no-cache",
+          "vary": "Accept-Encoding",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-xss-protection": "1; mode=block"
+        },
+        "requestId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "resourceIPAddressSpace": "Public",
+        "statusCode": 200
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceived",
+      "params": {
+        "frameId": "14047A4DE843A198D3B51FB40D458B34",
+        "hasExtraInfo": true,
+        "loaderId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "requestId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "utf-8",
+          "connectionId": 86,
+          "connectionReused": false,
+          "encodedDataLength": 180,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "cache-control": "no-store, must-revalidate, no-cache",
+            "content-encoding": "gzip",
+            "content-length": "1086",
+            "content-type": "text/html; charset=utf-8\ntext/html",
+            "pragma": "no-cache",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "SAMEORIGIN",
+            "x-xss-protection": "1; mode=block"
+          },
+          "isIpProtectionUsed": false,
+          "mimeType": "text/html",
+          "protocol": "h2",
+          "remoteIPAddress": "84.252.149.206",
+          "remotePort": 443,
+          "responseTime": 1768157866522.158,
+          "securityDetails": {
+            "certificateId": 0,
+            "certificateTransparencyCompliance": "compliant",
+            "cipher": "AES_128_GCM",
+            "encryptedClientHello": false,
+            "issuer": "HARICA DV TLS RSA",
+            "keyExchange": "",
+            "keyExchangeGroup": "X25519",
+            "protocol": "TLS 1.3",
+            "sanList": [
+              "sberbank.ru",
+              "www.sberbank.ru",
+              "sbrf.ru",
+              "www.sbrf.ru"
+            ],
+            "serverSignatureAlgorithm": 2052,
+            "signedCertificateTimestampList": [
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Sectigo 'Mammoth2026h1'",
+                "logId": "252F94C22B29E96E9F411A72072B695C5B52FF97A90D2540BBFCDC51EC4DEE0B",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "3044022024AC3A58E249952FD654FF54FB0EB4AC9F50CCB9F74525AA5AA62A7C06F25BC802206B92DDFA9435D026476B1BEA67D6F04128ECB447E4DAC0D7D3F4BB7BEDB05947",
+                "status": "Verified",
+                "timestamp": 1744237296411.0
+              },
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Let's Encrypt 'Oak2026h1'",
+                "logId": "1986D4C728AA6FFEBA036F782A4D0191AACE2D72310FAECE5D70412D254CC7D4",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "30440220782BF05D81B4546E5BD5C670775E8FA2A8BD7E958270F8F293A4C47BA11F008902206A7AA1F24C8847FE579AEF252D6D12B5A2A46B69096CB3CF6745A0A52224A31B",
+                "status": "Verified",
+                "timestamp": 1744237296577.0
+              },
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Google 'Xenon2026h1' log",
+                "logId": "969764BF555897ADF743876837084277E9F03AD5F6A4F3366E46A43F0FCAA9C6",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "3045022100D600DE912FE1BC5DFCE523628EC819933628CE5EE975538BC3053D524235BAC90220729E9FDF33D2F1ACFD5A8B3EB3BB729B36DB6DCB6CC8FD938DECC6C3F3FC6851",
+                "status": "Verified",
+                "timestamp": 1744237296355.0
+              }
+            ],
+            "subjectName": "sberbank.ru",
+            "validFrom": 1744236694,
+            "validTo": 1775772694
+          },
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "",
+          "timing": {
+            "connectEnd": 23.281,
+            "connectStart": 5.74,
+            "dnsEnd": 5.568,
+            "dnsStart": 0,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 32.081,
+            "receiveHeadersStart": 32.004,
+            "requestTime": 49890.32407,
+            "sendEnd": 23.589,
+            "sendStart": 23.428,
+            "sslEnd": 23.269,
+            "sslStart": 11.836,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "https://sberbank.ru/"
+        },
+        "timestamp": 49890.356489,
+        "type": "Document"
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Page.frameNavigated",
+      "params": {
+        "frame": {
+          "adFrameStatus": {
+            "adFrameType": "none"
+          },
+          "crossOriginIsolatedContextType": "NotIsolated",
+          "domainAndRegistry": "sberbank.ru",
+          "gatedAPIFeatures": [],
+          "id": "14047A4DE843A198D3B51FB40D458B34",
+          "loaderId": "B21D56128E8E0D148BAD8C34BB326D10",
+          "mimeType": "text/html",
+          "secureContextType": "Secure",
+          "securityOrigin": "https://sberbank.ru",
+          "securityOriginDetails": {
+            "isLocalhost": false
+          },
+          "url": "https://sberbank.ru/"
+        },
+        "type": "Navigation"
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.policyUpdated",
+      "params": {}
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.dataReceived",
+      "params": {
+        "dataLength": 1579,
+        "encodedDataLength": 0,
+        "requestId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "timestamp": 49890.365352
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFinished",
+      "params": {
+        "encodedDataLength": 1275,
+        "requestId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "timestamp": 49890.356475
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "https://www.sberbank.com/proxy/services/sberlogger/error",
+        "hasUserGesture": false,
+        "initiator": {
+          "requestId": "14210.2",
+          "type": "preflight",
+          "url": "https://www.sberbank.com/proxy/services/sberlogger/error"
+        },
+        "loaderId": "",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Accept": "*/*",
+            "Access-Control-Request-Headers": "content-type",
+            "Access-Control-Request-Method": "POST",
+            "Origin": "https://sberbank.ru",
+            "Sec-Fetch-Mode": "cors",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+          },
+          "initialPriority": "High",
+          "method": "OPTIONS",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "https://www.sberbank.com/proxy/services/sberlogger/error"
+        },
+        "requestId": "CC8DEF2703DF26640F62701CDE0305D6",
+        "timestamp": 49890.36882,
+        "type": "Other",
+        "wallTime": 1768157866.534894
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "https://sberbank.ru/",
+        "frameId": "14047A4DE843A198D3B51FB40D458B34",
+        "hasUserGesture": false,
+        "initiator": {
+          "stack": {
+            "callFrames": [
+              {
+                "columnNumber": 314,
+                "functionName": "",
+                "lineNumber": 0,
+                "scriptId": "6",
+                "url": "https://sberbank.ru/"
+              }
+            ]
+          },
+          "type": "script"
+        },
+        "loaderId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "hasPostData": true,
+          "headers": {
+            "Content-Type": "application/json",
+            "Referer": "https://sberbank.ru/",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\""
+          },
+          "initialPriority": "High",
+          "isSameSite": false,
+          "method": "POST",
+          "mixedContentType": "none",
+          "postData": "{\"serviceName\":\"waf\",\"code\":\"user_blocked\",\"details\":{\"data\":{\"error\":{\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36\",\"referrer\":\"\",\"pageUrl\":\"https://sberbank.ru/\"}}}}",
+          "postDataEntries": [
+            {
+              "bytes": "eyJzZXJ2aWNlTmFtZSI6IndhZiIsImNvZGUiOiJ1c2VyX2Jsb2NrZWQiLCJkZXRhaWxzIjp7ImRhdGEiOnsiZXJyb3IiOnsidXNlckFnZW50IjoiTW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgSGVhZGxlc3NDaHJvbWUvMTQzLjAuMC4wIFNhZmFyaS81MzcuMzYiLCJyZWZlcnJlciI6IiIsInBhZ2VVcmwiOiJodHRwczovL3NiZXJiYW5rLnJ1LyJ9fX19"
+            }
+          ],
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "https://www.sberbank.com/proxy/services/sberlogger/error"
+        },
+        "requestId": "14210.2",
+        "timestamp": 49890.367422,
+        "type": "Fetch",
+        "wallTime": 1768157866.533517
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Page.domContentEventFired",
+      "params": {
+        "timestamp": 49890.367534
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Page.loadEventFired",
+      "params": {
+        "timestamp": 49890.368006
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Page.frameStoppedLoading",
+      "params": {
+        "frameId": "14047A4DE843A198D3B51FB40D458B34"
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "https://sberbank.ru/",
+        "frameId": "14047A4DE843A198D3B51FB40D458B34",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "redirectHasExtraInfo": false,
+        "request": {
+          "headers": {
+            "Referer": "https://sberbank.ru/",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36",
+            "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\""
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "https://sberbank.ru/favicon.ico"
+        },
+        "requestId": "14210.3",
+        "timestamp": 49890.379495,
+        "type": "Other",
+        "wallTime": 1768157866.545578
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSentExtraInfo",
+      "params": {
+        "associatedCookies": [],
+        "clientSecurityState": {
+          "initiatorIPAddressSpace": "Public",
+          "initiatorIsSecureContext": true,
+          "privateNetworkRequestPolicy": "PermissionBlock"
+        },
+        "connectTiming": {
+          "requestTime": 49890.379833
+        },
+        "headers": {
+          ":authority": "sberbank.ru",
+          ":method": "GET",
+          ":path": "/favicon.ico",
+          ":scheme": "https",
+          "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+          "accept-encoding": "gzip, deflate, br, zstd",
+          "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+          "priority": "u=1, i",
+          "referer": "https://sberbank.ru/",
+          "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\"",
+          "sec-fetch-dest": "image",
+          "sec-fetch-mode": "no-cors",
+          "sec-fetch-site": "same-origin",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+        },
+        "requestId": "14210.3",
+        "siteHasCookieInOtherPartition": false
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceivedExtraInfo",
+      "params": {
+        "blockedCookies": [],
+        "cookiePartitionKey": {
+          "hasCrossSiteAncestor": false,
+          "topLevelSite": "https://sberbank.ru"
+        },
+        "cookiePartitionKeyOpaque": false,
+        "exemptedCookies": [],
+        "headers": {
+          "allow": "GET, HEAD, OPTIONS",
+          "content-length": "162",
+          "content-security-policy": "frame-ancestors 'self' https://www.sberbank.ru https://www.sberbank.com",
+          "content-type": "text/html",
+          "date": "Sun, 11 Jan 2026 18:57:46 GMT",
+          "location": "https://www.sberbank.ru/favicon.ico",
+          "set-cookie": "TS01f0a616=012eb773503c070771891412468b7ea362c0335e0cb9ffd9f671fcc393754ef55b0bfabad227c17c6726ffec070191a14f625ae4ed; Path=/; Domain=.sberbank.ru",
+          "vary": "Accept-Encoding",
+          "x-content-type-options": "nosniff",
+          "x-xss-protection": "1; mode=block"
+        },
+        "requestId": "14210.3",
+        "resourceIPAddressSpace": "Public",
+        "statusCode": 301
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "https://sberbank.ru/",
+        "frameId": "14047A4DE843A198D3B51FB40D458B34",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "redirectHasExtraInfo": true,
+        "redirectResponse": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 86,
+          "connectionReused": true,
+          "encodedDataLength": 296,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "allow": "GET, HEAD, OPTIONS",
+            "content-length": "162",
+            "content-security-policy": "frame-ancestors 'self' https://www.sberbank.ru https://www.sberbank.com",
+            "content-type": "text/html",
+            "date": "Sun, 11 Jan 2026 18:57:46 GMT",
+            "location": "https://www.sberbank.ru/favicon.ico",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff",
+            "x-xss-protection": "1; mode=block"
+          },
+          "isIpProtectionUsed": false,
+          "mimeType": "text/html",
+          "protocol": "h2",
+          "remoteIPAddress": "84.252.149.206",
+          "remotePort": 443,
+          "responseTime": 1768157866556.973,
+          "securityDetails": {
+            "certificateId": 0,
+            "certificateTransparencyCompliance": "compliant",
+            "cipher": "AES_128_GCM",
+            "encryptedClientHello": false,
+            "issuer": "HARICA DV TLS RSA",
+            "keyExchange": "",
+            "keyExchangeGroup": "X25519",
+            "protocol": "TLS 1.3",
+            "sanList": [
+              "sberbank.ru",
+              "www.sberbank.ru",
+              "sbrf.ru",
+              "www.sbrf.ru"
+            ],
+            "serverSignatureAlgorithm": 2052,
+            "signedCertificateTimestampList": [
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Sectigo 'Mammoth2026h1'",
+                "logId": "252F94C22B29E96E9F411A72072B695C5B52FF97A90D2540BBFCDC51EC4DEE0B",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "3044022024AC3A58E249952FD654FF54FB0EB4AC9F50CCB9F74525AA5AA62A7C06F25BC802206B92DDFA9435D026476B1BEA67D6F04128ECB447E4DAC0D7D3F4BB7BEDB05947",
+                "status": "Verified",
+                "timestamp": 1744237296411.0
+              },
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Let's Encrypt 'Oak2026h1'",
+                "logId": "1986D4C728AA6FFEBA036F782A4D0191AACE2D72310FAECE5D70412D254CC7D4",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "30440220782BF05D81B4546E5BD5C670775E8FA2A8BD7E958270F8F293A4C47BA11F008902206A7AA1F24C8847FE579AEF252D6D12B5A2A46B69096CB3CF6745A0A52224A31B",
+                "status": "Verified",
+                "timestamp": 1744237296577.0
+              },
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Google 'Xenon2026h1' log",
+                "logId": "969764BF555897ADF743876837084277E9F03AD5F6A4F3366E46A43F0FCAA9C6",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "3045022100D600DE912FE1BC5DFCE523628EC819933628CE5EE975538BC3053D524235BAC90220729E9FDF33D2F1ACFD5A8B3EB3BB729B36DB6DCB6CC8FD938DECC6C3F3FC6851",
+                "status": "Verified",
+                "timestamp": 1744237296355.0
+              }
+            ],
+            "subjectName": "sberbank.ru",
+            "validFrom": 1744236694,
+            "validTo": 1775772694
+          },
+          "securityState": "secure",
+          "status": 301,
+          "statusText": "",
+          "timing": {
+            "connectEnd": -1,
+            "connectStart": -1,
+            "dnsEnd": -1,
+            "dnsStart": -1,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 11.144,
+            "receiveHeadersStart": 11.059,
+            "requestTime": 49890.379833,
+            "sendEnd": 0.239,
+            "sendStart": 0.155,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "https://sberbank.ru/favicon.ico"
+        },
+        "request": {
+          "headers": {
+            "Referer": "https://sberbank.ru/",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "https://www.sberbank.ru/favicon.ico"
+        },
+        "requestId": "14210.3",
+        "timestamp": 49890.391269,
+        "type": "Other",
+        "wallTime": 1768157866.557356
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSentExtraInfo",
+      "params": {
+        "associatedCookies": [
+          {
+            "blockedReasons": [],
+            "cookie": {
+              "domain": ".sberbank.ru",
+              "expires": -1,
+              "httpOnly": false,
+              "name": "TS01f0a616",
+              "path": "/",
+              "priority": "Medium",
+              "sameParty": false,
+              "secure": false,
+              "session": true,
+              "size": 116,
+              "sourcePort": 443,
+              "sourceScheme": "Secure",
+              "value": "012eb773503c070771891412468b7ea362c0335e0cb9ffd9f671fcc393754ef55b0bfabad227c17c6726ffec070191a14f625ae4ed"
+            },
+            "exemptionReason": "None"
+          }
+        ],
+        "clientSecurityState": {
+          "initiatorIPAddressSpace": "Public",
+          "initiatorIsSecureContext": true,
+          "privateNetworkRequestPolicy": "PermissionBlock"
+        },
+        "connectTiming": {
+          "requestTime": 49890.391376
+        },
+        "headers": {
+          ":authority": "www.sberbank.ru",
+          ":method": "GET",
+          ":path": "/favicon.ico",
+          ":scheme": "https",
+          "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+          "accept-encoding": "gzip, deflate, br, zstd",
+          "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+          "cookie": "TS01f0a616=012eb773503c070771891412468b7ea362c0335e0cb9ffd9f671fcc393754ef55b0bfabad227c17c6726ffec070191a14f625ae4ed",
+          "priority": "u=1, i",
+          "referer": "https://sberbank.ru/",
+          "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\"",
+          "sec-fetch-dest": "image",
+          "sec-fetch-mode": "no-cors",
+          "sec-fetch-site": "same-site",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+        },
+        "requestId": "14210.3",
+        "siteHasCookieInOtherPartition": false
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceivedExtraInfo",
+      "params": {
+        "blockedCookies": [],
+        "cookiePartitionKey": {
+          "hasCrossSiteAncestor": false,
+          "topLevelSite": "https://sberbank.ru"
+        },
+        "cookiePartitionKeyOpaque": false,
+        "exemptedCookies": [],
+        "headers": {
+          "content-length": "162",
+          "content-type": "text/html",
+          "date": "Sun, 11 Jan 2026 18:57:46 GMT",
+          "location": "https://www.sberbank.ru/common_static/favicon.ico",
+          "set-cookie": "x-session-id=3ac3b9e1-39c7-9cba-c1f7-924e4c5bd4e9; path=/; secure; httponly; max-age=86400; SameSite=Strict\nsbrf.region_set=true;Path=/;Expires=Sun, 11 Jan 2026 19:02:46 GMT\nTS017b5930=012eb773502e917dbb16aacbf686063c11a8d843c7b9ffd9f671fcc393754ef55b0bfabad2abc95dcdcb83fbc933a656ffb3f135f4c8cd4be5fba30db4081dc5ad99c76bb8b1d62f8d1d5f4e4ee9a5748393791efa; Path=/; Domain=.www.sberbank.ru",
+          "vary": "Accept-Encoding"
+        },
+        "requestId": "14210.3",
+        "resourceIPAddressSpace": "Public",
+        "statusCode": 301
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSent",
+      "params": {
+        "documentURL": "https://sberbank.ru/",
+        "frameId": "14047A4DE843A198D3B51FB40D458B34",
+        "hasUserGesture": false,
+        "initiator": {
+          "type": "other"
+        },
+        "loaderId": "B21D56128E8E0D148BAD8C34BB326D10",
+        "redirectHasExtraInfo": true,
+        "redirectResponse": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "",
+          "connectionId": 86,
+          "connectionReused": true,
+          "encodedDataLength": 369,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "content-length": "162",
+            "content-type": "text/html",
+            "date": "Sun, 11 Jan 2026 18:57:46 GMT",
+            "location": "https://www.sberbank.ru/common_static/favicon.ico",
+            "vary": "Accept-Encoding"
+          },
+          "isIpProtectionUsed": false,
+          "mimeType": "text/html",
+          "protocol": "h2",
+          "remoteIPAddress": "84.252.149.206",
+          "remotePort": 443,
+          "responseTime": 1768157866571.583,
+          "securityState": "unknown",
+          "status": 301,
+          "statusText": "",
+          "timing": {
+            "connectEnd": -1,
+            "connectStart": -1,
+            "dnsEnd": -1,
+            "dnsStart": -1,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 14.189,
+            "receiveHeadersStart": 14.125,
+            "requestTime": 49890.391376,
+            "sendEnd": 6.319,
+            "sendStart": 6.263,
+            "sslEnd": -1,
+            "sslStart": -1,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "https://www.sberbank.ru/favicon.ico"
+        },
+        "request": {
+          "headers": {
+            "Referer": "https://sberbank.ru/",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+          },
+          "initialPriority": "High",
+          "isSameSite": true,
+          "method": "GET",
+          "mixedContentType": "none",
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "url": "https://www.sberbank.ru/common_static/favicon.ico"
+        },
+        "requestId": "14210.3",
+        "timestamp": 49890.406011,
+        "type": "Other",
+        "wallTime": 1768157866.572095
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSentExtraInfo",
+      "params": {
+        "associatedCookies": [
+          {
+            "blockedReasons": [],
+            "cookie": {
+              "domain": ".sberbank.ru",
+              "expires": -1,
+              "httpOnly": false,
+              "name": "TS01f0a616",
+              "path": "/",
+              "priority": "Medium",
+              "sameParty": false,
+              "secure": false,
+              "session": true,
+              "size": 116,
+              "sourcePort": 443,
+              "sourceScheme": "Secure",
+              "value": "012eb773503c070771891412468b7ea362c0335e0cb9ffd9f671fcc393754ef55b0bfabad227c17c6726ffec070191a14f625ae4ed"
+            },
+            "exemptionReason": "None"
+          },
+          {
+            "blockedReasons": [],
+            "cookie": {
+              "domain": "www.sberbank.ru",
+              "expires": 1768244266.571643,
+              "httpOnly": true,
+              "name": "x-session-id",
+              "path": "/",
+              "priority": "Medium",
+              "sameParty": false,
+              "sameSite": "Strict",
+              "secure": true,
+              "session": false,
+              "size": 48,
+              "sourcePort": 443,
+              "sourceScheme": "Secure",
+              "value": "3ac3b9e1-39c7-9cba-c1f7-924e4c5bd4e9"
+            },
+            "exemptionReason": "None"
+          },
+          {
+            "blockedReasons": [],
+            "cookie": {
+              "domain": "www.sberbank.ru",
+              "expires": 1768158166.571671,
+              "httpOnly": false,
+              "name": "sbrf.region_set",
+              "path": "/",
+              "priority": "Medium",
+              "sameParty": false,
+              "secure": false,
+              "session": false,
+              "size": 19,
+              "sourcePort": 443,
+              "sourceScheme": "Secure",
+              "value": "true"
+            },
+            "exemptionReason": "None"
+          },
+          {
+            "blockedReasons": [],
+            "cookie": {
+              "domain": ".www.sberbank.ru",
+              "expires": -1,
+              "httpOnly": false,
+              "name": "TS017b5930",
+              "path": "/",
+              "priority": "Medium",
+              "sameParty": false,
+              "secure": false,
+              "session": true,
+              "size": 180,
+              "sourcePort": 443,
+              "sourceScheme": "Secure",
+              "value": "012eb773502e917dbb16aacbf686063c11a8d843c7b9ffd9f671fcc393754ef55b0bfabad2abc95dcdcb83fbc933a656ffb3f135f4c8cd4be5fba30db4081dc5ad99c76bb8b1d62f8d1d5f4e4ee9a5748393791efa"
+            },
+            "exemptionReason": "None"
+          }
+        ],
+        "clientSecurityState": {
+          "initiatorIPAddressSpace": "Public",
+          "initiatorIsSecureContext": true,
+          "privateNetworkRequestPolicy": "PermissionBlock"
+        },
+        "connectTiming": {
+          "requestTime": 49890.406112
+        },
+        "headers": {
+          ":authority": "www.sberbank.ru",
+          ":method": "GET",
+          ":path": "/common_static/favicon.ico",
+          ":scheme": "https",
+          "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+          "accept-encoding": "gzip, deflate, br, zstd",
+          "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+          "cookie": "TS01f0a616=012eb773503c070771891412468b7ea362c0335e0cb9ffd9f671fcc393754ef55b0bfabad227c17c6726ffec070191a14f625ae4ed; x-session-id=3ac3b9e1-39c7-9cba-c1f7-924e4c5bd4e9; sbrf.region_set=true; TS017b5930=012eb773502e917dbb16aacbf686063c11a8d843c7b9ffd9f671fcc393754ef55b0bfabad2abc95dcdcb83fbc933a656ffb3f135f4c8cd4be5fba30db4081dc5ad99c76bb8b1d62f8d1d5f4e4ee9a5748393791efa",
+          "priority": "u=1, i",
+          "referer": "https://sberbank.ru/",
+          "sec-ch-ua": "\"Google Chrome\";v=\"143\", \"Chromium\";v=\"143\", \"Not A(Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\"",
+          "sec-fetch-dest": "image",
+          "sec-fetch-mode": "no-cors",
+          "sec-fetch-site": "same-site",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+        },
+        "requestId": "14210.3",
+        "siteHasCookieInOtherPartition": false
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.requestWillBeSentExtraInfo",
+      "params": {
+        "associatedCookies": [],
+        "clientSecurityState": {
+          "initiatorIPAddressSpace": "Public",
+          "initiatorIsSecureContext": true,
+          "privateNetworkRequestPolicy": "PermissionBlock"
+        },
+        "connectTiming": {
+          "requestTime": 49890.368695
+        },
+        "headers": {
+          ":authority": "www.sberbank.com",
+          ":method": "OPTIONS",
+          ":path": "/proxy/services/sberlogger/error",
+          ":scheme": "https",
+          "accept": "*/*",
+          "accept-encoding": "gzip, deflate, br, zstd",
+          "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+          "access-control-request-headers": "content-type",
+          "access-control-request-method": "POST",
+          "origin": "https://sberbank.ru",
+          "priority": "u=1, i",
+          "referer": "https://sberbank.ru/",
+          "sec-fetch-dest": "empty",
+          "sec-fetch-mode": "cors",
+          "sec-fetch-site": "cross-site",
+          "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/143.0.0.0 Safari/537.36"
+        },
+        "requestId": "CC8DEF2703DF26640F62701CDE0305D6",
+        "siteHasCookieInOtherPartition": false
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceivedExtraInfo",
+      "params": {
+        "blockedCookies": [],
+        "cookiePartitionKey": {
+          "hasCrossSiteAncestor": true,
+          "topLevelSite": "https://sberbank.ru"
+        },
+        "cookiePartitionKeyOpaque": false,
+        "exemptedCookies": [],
+        "headers": {
+          "cache-control": "no-store, must-revalidate, no-cache",
+          "content-encoding": "gzip",
+          "content-length": "1085",
+          "content-type": "text/html; charset=utf-8\ntext/html",
+          "pragma": "no-cache",
+          "vary": "Accept-Encoding",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-xss-protection": "1; mode=block"
+        },
+        "requestId": "CC8DEF2703DF26640F62701CDE0305D6",
+        "resourceIPAddressSpace": "Public",
+        "statusCode": 200
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceivedExtraInfo",
+      "params": {
+        "blockedCookies": [],
+        "cookiePartitionKey": {
+          "hasCrossSiteAncestor": false,
+          "topLevelSite": "https://sberbank.ru"
+        },
+        "cookiePartitionKeyOpaque": false,
+        "exemptedCookies": [],
+        "headers": {
+          "cache-control": "no-store, must-revalidate, no-cache",
+          "content-encoding": "gzip",
+          "content-length": "1086",
+          "content-type": "text/html; charset=utf-8\ntext/html",
+          "pragma": "no-cache",
+          "vary": "Accept-Encoding",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-xss-protection": "1; mode=block"
+        },
+        "requestId": "14210.3",
+        "resourceIPAddressSpace": "Public",
+        "statusCode": 200
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.responseReceived",
+      "params": {
+        "hasExtraInfo": true,
+        "loaderId": "",
+        "requestId": "CC8DEF2703DF26640F62701CDE0305D6",
+        "response": {
+          "alternateProtocolUsage": "unspecifiedReason",
+          "charset": "utf-8",
+          "connectionId": 111,
+          "connectionReused": false,
+          "encodedDataLength": 180,
+          "fromDiskCache": false,
+          "fromPrefetchCache": false,
+          "fromServiceWorker": false,
+          "headers": {
+            "cache-control": "no-store, must-revalidate, no-cache",
+            "content-encoding": "gzip",
+            "content-length": "1085",
+            "content-type": "text/html; charset=utf-8\ntext/html",
+            "pragma": "no-cache",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "SAMEORIGIN",
+            "x-xss-protection": "1; mode=block"
+          },
+          "isIpProtectionUsed": false,
+          "mimeType": "text/html",
+          "protocol": "h2",
+          "remoteIPAddress": "84.252.149.206",
+          "remotePort": 443,
+          "responseTime": 1768157866580.535,
+          "securityDetails": {
+            "certificateId": 0,
+            "certificateTransparencyCompliance": "compliant",
+            "cipher": "AES_128_GCM",
+            "encryptedClientHello": false,
+            "issuer": "HARICA DV TLS RSA",
+            "keyExchange": "",
+            "keyExchangeGroup": "X25519",
+            "protocol": "TLS 1.3",
+            "sanList": [
+              "sberbank.com",
+              "www.sberbank.com"
+            ],
+            "serverSignatureAlgorithm": 2052,
+            "signedCertificateTimestampList": [
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Sectigo 'Mammoth2026h2'",
+                "logId": "94B1C18AB0D057C47BE0AC040E1F2CBC8DC375727BC951F20A526126863BA73C",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "304402204CC86B36B1C708A5995C802C6BD7AD8EDD4CDE85E9CB21B9492924883921066D02204332E68EB1BB4A0E517764F200FEFDD569C1D0360605B686398E2875B6D68394",
+                "status": "Verified",
+                "timestamp": 1751349416594.0
+              },
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Google 'Argon2026h2' log",
+                "logId": "D76D7D10D1A7F577C2C7E95FD700BFF982C9335A65E1D0B3017317C0C8C56977",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "304402201807C99DAAF070DCFCBB8408939E17205F01B7FB4D7AF78815C23C840D394355022017C8FB3683F115C124AEEB36170CECA08CB1D4DD54B2ACA83E9BC7B2755400BB",
+                "status": "Verified",
+                "timestamp": 1751349416518.0
+              },
+              {
+                "hashAlgorithm": "SHA-256",
+                "logDescription": "Google 'Xenon2026h2' log",
+                "logId": "D809553B944F7AFFC816196F944F85ABB0F8FC5E8755260F15D12E72BB454B14",
+                "origin": "Embedded in certificate",
+                "signatureAlgorithm": "ECDSA",
+                "signatureData": "304402203885C13E11A7BFBF530D8345C29EB8A4E41EBD8D10E99B5F2D035259A2EE5BDB0220711E44586FA2DA2A0963E605221D00378537CC7C30D433A95BF68FB5F35255E9",
+                "status": "Verified",
+                "timestamp": 1751349416348.0
+              }
+            ],
+            "subjectName": "sberbank.com",
+            "validFrom": 1751348814,
+            "validTo": 1782884814
+          },
+          "securityState": "secure",
+          "status": 200,
+          "statusText": "",
+          "timing": {
+            "connectEnd": 37.735,
+            "connectStart": 19.582,
+            "dnsEnd": 19.507,
+            "dnsStart": 0.118,
+            "proxyEnd": -1,
+            "proxyStart": -1,
+            "pushEnd": 0,
+            "pushStart": 0,
+            "receiveHeadersEnd": 45.802,
+            "receiveHeadersStart": 45.75,
+            "requestTime": 49890.368695,
+            "sendEnd": 37.808,
+            "sendStart": 37.779,
+            "sslEnd": 37.733,
+            "sslStart": 26.124,
+            "workerFetchStart": -1,
+            "workerReady": -1,
+            "workerRespondWithSettled": -1,
+            "workerStart": -1
+          },
+          "url": "https://www.sberbank.com/proxy/services/sberlogger/error"
+        },
+        "timestamp": 49890.414832,
+        "type": "Preflight"
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFailed",
+      "params": {
+        "canceled": false,
+        "errorText": "net::ERR_BLOCKED_BY_ORB",
+        "requestId": "14210.3",
+        "timestamp": 49890.414806,
+        "type": "Other"
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFinished",
+      "params": {
+        "encodedDataLength": 0,
+        "requestId": "CC8DEF2703DF26640F62701CDE0305D6",
+        "timestamp": 49890.414794
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  },
+  {
+    "message": {
+      "method": "Network.loadingFailed",
+      "params": {
+        "canceled": false,
+        "corsErrorStatus": {
+          "corsError": "PreflightMissingAllowOriginHeader",
+          "failedParameter": ""
+        },
+        "errorText": "net::ERR_FAILED",
+        "requestId": "14210.2",
+        "timestamp": 49890.415123,
+        "type": "Fetch"
+      }
+    },
+    "webview": "14047A4DE843A198D3B51FB40D458B34"
+  }
+]
