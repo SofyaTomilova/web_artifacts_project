@@ -56,18 +56,15 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
         if cfg.check_redirection and final_url != url:
             logger.info("Обнаружен редирект: %s -> %s", url, final_url)
 
-        # Базовый путь вида <run_dir>/<hostname>
         base_path = make_base_path(final_url, run_dir)
         run_dir_for_score = base_path.parent
         base_name = base_path.name
 
-        # Сохраняем метаданные (оригинальный и финальный URL)
         try:
             write_metadata(run_dir_for_score, base_name, original_url, final_url)
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:  
             logger.warning("Не удалось сохранить метаданные для %s: %s", final_url, exc)
 
-        # Визуальные артефакты
         if cfg.capture_screenshot:
             save_screenshot(driver, base_path)
         if cfg.save_page_copy:
@@ -158,25 +155,19 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
 
 
 def run_batch(urls: Iterable[str], cfg: Config, run_dir: Path) -> None:
-    """
-    Запускает параллельную обработку списка URL.
-    """
+    #Запускает параллельную обработку списка URL.#
     url_list = list(urls)
     if not url_list:
         logger.warning("Список URL пуст, нечего обрабатывать")
         return
-
     logger.info("Начало обработки %d URL в %d поток(ах)", len(url_list), cfg.num_threads)
 
     with ThreadPoolExecutor(max_workers=cfg.num_threads) as executor:
         futures = [executor.submit(process_single_url, url, cfg, run_dir) for url in url_list]
-
         iterator = as_completed(futures)
         if tqdm is not None:
             iterator = tqdm(iterator, total=len(futures), desc="Обработка URL")
-
         for future in iterator:
             # Исключения уже залогированы внутри process_single_url.
             _ = future.result()
-
     logger.info("Обработка завершена")

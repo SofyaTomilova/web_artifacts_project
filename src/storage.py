@@ -43,18 +43,11 @@ def create_run_directory(root: str | Path) -> Path:
 
 
 def extract_hostname(url: str) -> str:
-    """
-    Извлекает имя хоста из URL.
-    """
     parsed = urlparse(url)
     return parsed.hostname or parsed.netloc or ""
 
 
 def make_base_path(url: str, run_dir: Path) -> Path:
-    """
-    Формирует базовое имя файла для артефактов по URL.
-    Используем хост и укороченный SHA256 от полного URL, чтобы избежать проблем с длиной имён.
-    """
     host = extract_hostname(url) or "unknown"
     short_host = host.replace(":", "_")[:40] or "unknown"
 
