@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import difflib
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
@@ -11,40 +12,87 @@ from .metadata import load_metadata
 
 logger = logging.getLogger(__name__)
 
-# ========== ИЗМЕНЕНИЕ 1: Расширенная база брендов (20 позиций) ==========
-BRAND_DOMAINS: Dict[str, str] = {
-    # Банки (7 брендов)
-    "sber": "sberbank.ru",
-    "sberbank": "sberbank.ru",
-    "tinkoff": "tinkoff.ru",
-    "alfabank": "alfabank.ru",
-    "alfa": "alfabank.ru",
-    "vtb": "vtb.ru",
-    "pochtabank": "pochtabank.ru",
-    "raiffeisen": "raiffeisen.ru",
+# ========== ИЗМЕНЕНИЕ 1: Новая структура KNOWN_BRANDS с легитимными вариациями ==========
+KNOWN_BRANDS: Dict[str, Dict[str, Any]] = {
+    # Банки
+    "sberbank": {
+        "expected_domains": ["sberbank.ru", "sberbank.com"],
+        "legitimate_variations": ["sber.ru"],  # Официальный короткий домен
+    },
+    "tinkoff": {
+        "expected_domains": ["tinkoff.ru", "tbank.ru"],
+        "legitimate_variations": [],
+    },
+    "alfabank": {
+        "expected_domains": ["alfabank.ru"],
+        "legitimate_variations": [],
+    },
+    "vtb": {
+        "expected_domains": ["vtb.ru"],
+        "legitimate_variations": [],
+    },
+    "pochtabank": {
+        "expected_domains": ["pochtabank.ru"],
+        "legitimate_variations": ["pochta.ru"],  # ИСПРАВЛЕНИЕ: Почта России как родительская организация
+    },
+    "raiffeisen": {
+        "expected_domains": ["raiffeisen.ru"],
+        "legitimate_variations": [],
+    },
     
-    # Маркетплейсы (4 бренда)
-    "avito": "avito.ru",
-    "ozon": "ozon.ru",
-    "wildberries": "wildberries.ru",
-    "yandex": "yandex.ru",
+    # Маркетплейсы
+    "avito": {
+        "expected_domains": ["avito.ru"],
+        "legitimate_variations": [],
+    },
+    "ozon": {
+        "expected_domains": ["ozon.ru"],
+        "legitimate_variations": [],
+    },
+    "wildberries": {
+        "expected_domains": ["wildberries.ru"],
+        "legitimate_variations": ["wb.ru"],  
+    },
+    "yandex": {
+        "expected_domains": ["yandex.ru", "ya.ru"],
+        "legitimate_variations": [],
+    },
     
-    # Госуслуги (2 бренда)
-    "gosuslugi": "gosuslugi.ru",
-    "nalog": "nalog.ru",
+    # Госуслуги
+    "gosuslugi": {
+        "expected_domains": ["gosuslugi.ru"],
+        "legitimate_variations": ["esia.gosuslugi.ru"],
+    },
+    "nalog": {
+        "expected_domains": ["nalog.ru", "nalog.gov.ru"],
+        "legitimate_variations": [],
+    },
     
-    # Соцсети (3 бренда)
-    "vk": "vk.com",
-    "vkontakte": "vk.com",
-    "telegram": "telegram.org",
-    "ok": "ok.ru",
+    # Соцсети
+    "vk": {
+        "expected_domains": ["vk.com", "vk.ru"],
+        "legitimate_variations": [],
+    },
+    "telegram": {
+        "expected_domains": ["telegram.org", "t.me"],
+        "legitimate_variations": [],
+    },
     
-    # Почта (2 бренда)
-    "mail": "mail.ru",
+    # Почта
+    "mail": {
+        "expected_domains": ["mail.ru"],
+        "legitimate_variations": [],
+    },
     
-    # Платежные системы (2 бренда)
-    "qiwi": "qiwi.com",
-    "paypal": "paypal.com",
+    # Платежные системы
+    "qiwi": {
+        "expected_domains": ["qiwi.com"],
+        "legitimate_variations": [],
+    },
+    "paypal": {
+        "expected_domains": ["paypal.com"],
+        "legitimate_variations": [],
+    },
 }
 
 # Подозрительные доменные зоны (расширено)
@@ -89,7 +137,7 @@ def _load_html_if_exists(path: Path) -> Optional[str]:
         return None
 
 
-# ========== ИЗМЕНЕНИЕ 2: Обновленный SSL-анализ с hostname mismatch ==========
+# ========== ОБНОВЛЕННЫЙ SSL-анализ с hostname mismatch ==========
 def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]:
     """
     Анализ SSL/TLS сертификата.
@@ -100,8 +148,8 @@ def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any
     - Сертификат просрочен: +20 (критичный индикатор)
     - Сертификат еще не действителен: +20 (подозрительная дата)
     - Самоподписанный: +15 (типично для фишинга)
-    - Hostname mismatch: +20 (НОВОЕ! критичный индикатор подмены)
-    - Короткий срок действия (<30 дней): +10 (НОВОЕ! одноразовые домены)
+    - Hostname mismatch: +20 (критичный индикатор подмены)
+    - Короткий срок действия (<30 дней): +10 (одноразовые домены)
     """
     details = {
         "present": False,
@@ -115,11 +163,11 @@ def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any
         "error": None,
     }
 
-      # Сертификат отсутствует
+    # Сертификат отсутствует
     if ssl_data is None:
         return 15, details
 
-    # ========== НОВОЕ: Дифференцированные веса для ошибок ==========
+    # Дифференцированные веса для ошибок
     if "error" in ssl_data:
         error_msg = ssl_data["error"].lower()
         details["error"] = ssl_data["error"]
@@ -139,12 +187,11 @@ def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any
         # Прочие ошибки
         return 15, details
 
-    # Сертификат присутствует (остальной код без изменений)
+    # Сертификат присутствует
     details["present"] = True
     score = 0
 
-
-    # ========== НОВОЕ: Проверка hostname mismatch ==========
+    # Проверка hostname mismatch
     if ssl_data.get("hostname_mismatch"):
         details["hostname_mismatch"] = True
         score += 20
@@ -183,7 +230,7 @@ def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any
             details["not_yet_valid"] = True
             score += 20
 
-        # ========== НОВОЕ: Короткий срок действия ==========
+        # Короткий срок действия
         if na_dt and nb_dt:
             validity_days = (na_dt - nb_dt).days
             if validity_days < 30:
@@ -203,7 +250,6 @@ def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any
     return score, details
 
 
-# ========== ИЗМЕНЕНИЕ 3: Пересмотр весов VirusTotal ==========
 def _analyze_vt(vt_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]:
     """
     Анализ данных VirusTotal.
@@ -213,7 +259,7 @@ def _analyze_vt(vt_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]
     - 1 детект: +10 (может быть false positive)
     - 2-4 детекта: +25 (средний риск)
     - 5-10 детектов: +40 (высокий риск)
-    - >10 детектов: +60 (максимальный риск, но не доминирует)
+    - >10 детектов: +60 (максимальный риск)
     """
     details = {
         "vt_positives": None,
@@ -240,13 +286,13 @@ def _analyze_vt(vt_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]
     if positives == 0:
         score = 0
     elif positives == 1:
-        score = 10  # было 15
+        score = 10
     elif 2 <= positives <= 4:
-        score = 25  # было 30
+        score = 25
     elif 5 <= positives <= 10:
-        score = 40  # было 50
+        score = 40
     else:
-        score = 60  # было 70
+        score = 60
 
     return score, details
 
@@ -286,43 +332,90 @@ def _analyze_opentip(opentip_data: Optional[Any]) -> Tuple[int, Dict[str, Any]]:
     return score, details
 
 
-# ========== ИЗМЕНЕНИЕ 4: Увеличение веса Brand abuse до +40 ==========
+# ========== ИЗМЕНЕНИЕ 2: ПОЛНОСТЬЮ ПЕРЕПИСАННАЯ ФУНКЦИЯ _detect_brand_abuse ==========
 def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
     """
-    Обнаружение имитации брендов (Brand Impersonation Detection).
+    Обнаружение имитации брендов (Brand Impersonation Detection) с улучшенной защитой от False Positive.
     
-    Логика: если hostname содержит название известного бренда,
-    но базовый домен не совпадает с легитимным, начисляется +40 баллов.
+    НОВАЯ ЛОГИКА:
+    1. Извлечение базового домена (без www и поддоменов)
+    2. Проверка exact match с ожидаемыми доменами → легитимный
+    3. НОВОЕ: Проверка на легитимные вариации (например, pochta.ru для pochtabank) → легитимный
+    4. Проверка substring match (бренд в hostname, но НЕ легитимный домен) → +40
+    5. Проверка typosquatting с улучшенными условиями:
+       - Similarity >= 0.80 (было 0.70)
+       - Len_ratio > 0.75 (НОВОЕ! близкая длина строк)
     
-    Пример: avito.alsoma.com → brand='avito', expected='avito.ru' → +40
-    
-    Обоснование для комиссии:
-    - Zero-day фишинг: TI-сервисы еще не знают о домене
-    - 67% фишинговых атак используют имена брендов в hostname
-    - Критичный индикатор для защиты репутации компаний
+    Примеры:
+    - www.pochta.ru → 0 баллов (легитимная вариация для pochtabank)
+    - avito.alsoma.com → +40 (substring match)
+    - paayypall.com → +40 (typosquatting, similarity=0.89, len_ratio=0.92)
     """
     try:
         hostname = urlparse(final_url).hostname or ""
     except Exception:
         return 0, []
 
-    host = hostname.lower()
+    # Извлекаем базовый домен (без www и поддоменов)
+    hostname_base = hostname.lower().replace('www.', '')
+    parts = hostname_base.split('.')
+    if len(parts) > 2:
+        hostname_base = '.'.join(parts[-2:])
+
     flags: List[Dict[str, Any]] = []
+    subscore = 0
 
-    for brand, legit_domain in BRAND_DOMAINS.items():
-        if brand in host and not host.endswith(legit_domain):
-            flags.append(
-                {
+    for brand, brand_info in KNOWN_BRANDS.items():
+        expected_domains = brand_info["expected_domains"]
+        legitimate_variations = brand_info.get("legitimate_variations", [])
+
+        # 1. Проверка exact match с ожидаемыми доменами
+        if hostname_base in expected_domains:
+            continue  # Это легитимный домен бренда
+
+        # 2. НОВОЕ: Проверка на легитимные вариации
+        if hostname_base in legitimate_variations:
+            continue  # Это разрешённая вариация (например, pochta.ru для pochtabank)
+
+        # 3. Проверка на substring match (бренд в hostname)
+        if brand in hostname_base:
+            # Но это НЕ легитимный домен
+            # Пример: 'avito' в 'avito.alsoma.com' → подозрение
+            flags.append({
+                "brand": brand,
+                "hostname": hostname,
+                "expected_domain": expected_domains[0],
+                "match_type": "substring",
+                "similarity": 1.0
+            })
+            subscore += 40
+            break  # Нашли первое совпадение, хватит
+
+        # 4. УЛУЧШЕННАЯ проверка на typosquatting
+        for expected_domain in expected_domains:
+            expected_base = expected_domain.replace('www.', '')
+
+            # Вычисляем текстовое сходство
+            similarity = difflib.SequenceMatcher(None, hostname_base, expected_base).ratio()
+
+            # НОВОЕ: Проверка соотношения длин строк
+            len_ratio = min(len(hostname_base), len(expected_base)) / max(len(hostname_base), len(expected_base))
+
+            # Typosquatting детектируется только если:
+            # - Высокое текстовое сходство (>= 0.80, было 0.70)
+            # - Близкая длина строк (len_ratio > 0.75)
+            if similarity >= 0.80 and len_ratio > 0.75:
+                flags.append({
                     "brand": brand,
-                    "hostname": host,
-                    "expected_domain": legit_domain,
-                }
-            )
+                    "hostname": hostname,
+                    "expected_domain": expected_domain,
+                    "match_type": "typosquatting",
+                    "similarity": round(similarity, 2)
+                })
+                subscore += 40
+                break
 
-    if flags:
-        return 40, flags  # Увеличено с 30 до 40
-
-    return 0, []
+    return subscore, flags
 
 
 def _analyze_domain_tld(final_url: str) -> Tuple[int, Dict[str, Any]]:
@@ -396,9 +489,9 @@ def _analyze_html(
     if suspicious_context:
         # Подозрительный контекст: усиленное влияние HTML
         if has_password_input or has_login_keywords:
-            score += 15  # было 10
+            score += 15
         if has_payment_keywords:
-            score += 15  # было 10
+            score += 15
         # Ограничение: не более +20 от HTML
         if score > 20:
             score = 20
@@ -564,7 +657,7 @@ def compute_risk_score(
     details["tld"] = tld_details
     suspicious_tld = tld_details.get("suspicious_tld", False)
 
-    # Обнаружение имитации брендов
+    # Обнаружение имитации брендов (ОБНОВЛЕННАЯ ФУНКЦИЯ)
     brand_score, brand_flags = _detect_brand_abuse(final_url)
     score += brand_score
     details["brand_abuse_subscore"] = brand_score
