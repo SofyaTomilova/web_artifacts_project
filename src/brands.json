@@ -1,0 +1,98 @@
+{
+    "sberbank": {
+        "expected_domains": ["sberbank.ru", "sberbank.com", "online.sberbank.ru"],
+        "legitimate_variations": ["sber.ru", "beta.sberbank.ru"]
+    },
+    "tinkoff": {
+        "expected_domains": ["tinkoff.ru", "tbank.ru", "lk.tinkoff.ru"],
+        "legitimate_variations": []
+    },
+    "alfabank": {
+        "expected_domains": ["alfabank.ru"],
+        "legitimate_variations": []
+    },
+    "vtb": {
+        "expected_domains": ["vtb.ru"],
+        "legitimate_variations": []
+    },
+    "pochtabank": {
+        "expected_domains": ["pochtabank.ru"],
+        "legitimate_variations": ["pochta.ru"]
+    },
+    "raiffeisen": {
+        "expected_domains": ["raiffeisen.ru"],
+        "legitimate_variations": []
+    },
+
+    "avito": {
+        "expected_domains": ["avito.ru", "m.avito.ru"],
+        "legitimate_variations": []
+    },
+    "ozon": {
+        "expected_domains": ["ozon.ru"],
+        "legitimate_variations": []
+    },
+    "wildberries": {
+        "expected_domains": ["wildberries.ru"],
+        "legitimate_variations": ["wb.ru"]
+    },
+    "yandex": {
+        "expected_domains": ["yandex.ru", "ya.ru"],
+        "legitimate_variations": []
+    },
+
+    "gosuslugi": {
+        "expected_domains": ["gosuslugi.ru", "beta.gosuslugi.ru"],
+        "legitimate_variations": ["esia.gosuslugi.ru"]
+    },
+    "nalog": {
+        "expected_domains": ["nalog.ru", "nalog.gov.ru"],
+        "legitimate_variations": []
+    },
+
+    "vk": {
+        "expected_domains": ["vk.com", "vk.ru", "m.vk.com"],
+        "legitimate_variations": []
+    },
+    "telegram": {
+        "expected_domains": ["telegram.org", "t.me", "api.telegram.org"],
+        "legitimate_variations": []
+    },
+
+    "mail": {
+        "expected_domains": ["mail.ru"],
+        "legitimate_variations": []
+    },
+
+    "qiwi": {
+        "expected_domains": ["qiwi.com"],
+        "legitimate_variations": []
+    },
+    "paypal": {
+        "expected_domains": ["paypal.com"],
+        "legitimate_variations": []
+    },
+
+    "steam": {
+        "expected_domains": ["steampowered.com"],
+        "legitimate_variations": []
+    },
+    "steamcommunity": {
+        "expected_domains": ["steamcommunity.com"],
+        "legitimate_variations": []
+    },
+
+    "trezor": {
+        "expected_domains": ["trezor.io"],
+        "legitimate_variations": []
+    },
+    "metamask": {
+        "expected_domains": ["metamask.io"],
+        "legitimate_variations": []
+    },
+
+    "rogers": {
+        "expected_domains": ["rogers.com"],
+        "legitimate_variations": []
+    }
+}

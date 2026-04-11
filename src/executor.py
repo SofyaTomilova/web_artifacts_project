@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import logging
 import json
+import webbrowser
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Optional
 
 from .scoring import compute_risk_score
+from .report import generate_summary_report
 from .threat_intel import (
     get_vt_api_key,
     get_opentip_api_key,
@@ -45,7 +47,7 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
     driver = None
     original_url = url
     final_url = url
-    base_path: Path | None = None
+    base_path: Optional[Path] = None
     load_success = False  # НОВОЕ: флаг успешности загрузки
     load_message = "Not attempted"  # НОВОЕ: сообщение о результате загрузки
 
@@ -202,25 +204,85 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
 
 
 def run_batch(urls: Iterable[str], cfg: Config, run_dir: Path) -> None:
-  
+
     url_list = list(urls)
     if not url_list:
         logger.warning("Список URL пуст, нечего обрабатывать")
         return
-    
+
     logger.info("Начало обработки %d URL в %d поток(ах)", len(url_list), cfg.num_threads)
 
     with ThreadPoolExecutor(max_workers=cfg.num_threads) as executor:
         futures = [executor.submit(process_single_url, url, cfg, run_dir) for url in url_list]
         iterator = as_completed(futures)
-        
+
         if tqdm is not None:
             iterator = tqdm(iterator, total=len(futures), desc="Обработка URL")
-        
+
         for future in iterator:
             try:
                 _ = future.result()
             except Exception as exc:
                 logger.error("Ошибка в потоке обработки URL: %s", exc)
-    
+
     logger.info("Обработка завершена")
+
+    # ── НОВОЕ: сбор score_data всех URL и вывод итогов ───────────────────
+    all_scores: list = []
+    for score_file in sorted(run_dir.rglob("*.score.json")):
+        try:
+            data = json.loads(score_file.read_text(encoding="utf-8"))
+            all_scores.append(data)
+        except Exception as exc:
+            logger.warning("Не удалось прочитать %s: %s", score_file, exc)
+
+    if not all_scores:
+        return
+
+    # ── Подсчёт статистики ────────────────────────────────────────────────
+    total     = len(all_scores)
+    malicious = [s for s in all_scores if s.get("verdict") == "malicious"]
+    suspicious = [s for s in all_scores if s.get("verdict") == "suspicious"]
+
+    logger.info("=" * 60)
+    logger.info("ИТОГО ПРОВЕРЕНО:      %d URL", total)
+    logger.info("✅ Легитимных:        %d", total - len(malicious) - len(suspicious))
+    logger.info("⚠️  Подозрительных:   %d", len(suspicious))
+    logger.info("🚨 Вредоносных:       %d", len(malicious))
+
+    if malicious:
+        logger.info("-" * 60)
+        logger.info("ОБНАРУЖЕННЫЕ ВРЕДОНОСНЫЕ / ФИШИНГОВЫЕ САЙТЫ:")
+        for s in sorted(malicious, key=lambda x: x.get("score", x.get("risk_score", 0)), reverse=True):
+            logger.info(
+                "  [score=%3d] %s",
+                s.get("score", s.get("risk_score", 0)),
+                s.get("url", s.get("original_url", "—")),
+            )
+
+    if suspicious:
+        logger.info("-" * 60)
+        logger.info("ПОДОЗРИТЕЛЬНЫЕ САЙТЫ (требуют дополнительной проверки):")
+        for s in sorted(suspicious, key=lambda x: x.get("score", x.get("risk_score", 0)), reverse=True):
+            logger.info(
+                "  [score=%3d] %s",
+                s.get("score", s.get("risk_score", 0)),
+                s.get("url", s.get("original_url", "—")),
+            )
+
+    logger.info("=" * 60)
+
+    # ── Сводный HTML-отчёт ────────────────────────────────────────────────
+    try:
+        summary_path = run_dir / "summary_report.html"
+        generate_summary_report(all_scores, summary_path)
+        logger.info("Сводный HTML-отчёт сохранён: %s", summary_path)
+
+        # Автоматическое открытие в браузере
+        try:
+            webbrowser.open(summary_path.resolve().as_uri())
+            logger.info("Сводный отчёт открыт в браузере")
+        except Exception as exc:
+            logger.warning("Не удалось открыть отчёт в браузере: %s", exc)
+    except Exception as exc:
+        logger.warning("Не удалось сгенерировать сводный отчёт: %s", exc)
