@@ -10,117 +10,14 @@ from urllib.parse import urlparse
 from datetime import datetime
 
 from .metadata import load_metadata
+from .tranco_whitelist import is_in_tranco_top10k
+from .domain_age import get_domain_age_days
 
 logger = logging.getLogger(__name__)
 
-# ========== ИЗВЕСТНЫЕ БРЕНДЫ ==========
-KNOWN_BRANDS: Dict[str, Dict[str, Any]] = {
-    # Банки
-    "sberbank": {
-        "expected_domains": ["sberbank.ru", "sberbank.com"],
-        "legitimate_variations": ["sber.ru"],
-    },
-    "tinkoff": {
-        "expected_domains": ["tinkoff.ru", "tbank.ru"],
-        "legitimate_variations": [],
-    },
-    "alfabank": {
-        "expected_domains": ["alfabank.ru"],
-        "legitimate_variations": [],
-    },
-    "vtb": {
-        "expected_domains": ["vtb.ru"],
-        "legitimate_variations": [],
-    },
-    "pochtabank": {
-        "expected_domains": ["pochtabank.ru"],
-        "legitimate_variations": ["pochta.ru"],
-    },
-    "raiffeisen": {
-        "expected_domains": ["raiffeisen.ru"],
-        "legitimate_variations": [],
-    },
-    
-    # Маркетплейсы
-    "avito": {
-        "expected_domains": ["avito.ru"],
-        "legitimate_variations": [],
-    },
-    "ozon": {
-        "expected_domains": ["ozon.ru"],
-        "legitimate_variations": [],
-    },
-    "wildberries": {
-        "expected_domains": ["wildberries.ru"],
-        "legitimate_variations": ["wb.ru"],
-    },
-    "yandex": {
-        "expected_domains": ["yandex.ru", "ya.ru"],
-        "legitimate_variations": [],
-    },
-    
-    # Госуслуги
-    "gosuslugi": {
-        "expected_domains": ["gosuslugi.ru"],
-        "legitimate_variations": ["esia.gosuslugi.ru"],
-    },
-    "nalog": {
-        "expected_domains": ["nalog.ru", "nalog.gov.ru"],
-        "legitimate_variations": [],
-    },
-    
-    # Соцсети
-    "vk": {
-        "expected_domains": ["vk.com", "vk.ru"],
-        "legitimate_variations": [],
-    },
-    "telegram": {
-        "expected_domains": ["telegram.org", "t.me"],
-        "legitimate_variations": [],
-    },
-    
-    # Почта
-    "mail": {
-        "expected_domains": ["mail.ru"],
-        "legitimate_variations": [],
-    },
-    
-    # Платежные системы
-    "qiwi": {
-        "expected_domains": ["qiwi.com"],
-        "legitimate_variations": [],
-    },
-    "paypal": {
-        "expected_domains": ["paypal.com"],
-        "legitimate_variations": [],
-    },
-    
-    # Игровые платформы
-    "steam": {
-        "expected_domains": ["steampowered.com"],
-        "legitimate_variations": [],
-    },
-    "steamcommunity": {
-        "expected_domains": ["steamcommunity.com"],
-        "legitimate_variations": [],
-    },
-    
-    # Криптокошельки
-    "trezor": {
-        "expected_domains": ["trezor.io"],
-        "legitimate_variations": [],
-    },
-    "metamask": {
-        "expected_domains": ["metamask.io"],
-        "legitimate_variations": [],
-    },
-    
-    # Международные бренды
-    "rogers": {
-        "expected_domains": ["rogers.com"],
-        "legitimate_variations": [],
-    },
-}
+# ========== ИЗВЕСТНЫЕ БРЕНДЫ (загружаются из brands.json) ==========
+_brands_path = Path(__file__).parent / "brands.json"
+KNOWN_BRANDS: Dict[str, Dict[str, Any]] = json.loads(_brands_path.read_text(encoding="utf-8")) if _brands_path.exists() else {}
 
 # Подозрительные доменные зоны
 SUSPICIOUS_TLDS = {
@@ -258,15 +155,14 @@ def _analyze_vt(vt_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]
     if not vt_data:
         return 0, details
 
-    raw = vt_data.get("raw")
-    if not raw:
+    # VirusTotal API v3: данные находятся в raw → data → attributes → last_analysis_stats
+    stats = vt_data.get("raw", {}).get("data", {}).get("attributes", {}).get("last_analysis_stats", {})
+
+    if not stats:
         return 0, details
 
-    positives = raw.get("positives")
-    total = raw.get("total")
-
-    if positives is None:
-        return 0, details
+    positives = stats.get("malicious", 0) + stats.get("suspicious", 0)
+    total = sum(stats.values()) if stats else None
 
     details["vt_positives"] = positives
     details["vt_total"] = total
@@ -337,7 +233,11 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
 
     hostname_lower = hostname.lower()
     hostname_clean = hostname_lower.replace('www.', '')
-    
+
+    # Проверка Tranco Top-10k — домен из белого списка, пропускаем
+    if is_in_tranco_top10k(hostname_clean):
+        return 0, []
+
     flags: List[Dict[str, Any]] = []
     subscore = 0
 
@@ -374,8 +274,7 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
                     "match_type": "substring",
                     "similarity": 1.0
                 })
-                subscore += 40
-                break
+                subscore = min(subscore + 40, 40)  # cap на одном бренде
 
         # 4. ========== ИСПРАВЛЕНИЕ: Typosquatting БЕЗ TLD ==========
         # Извлекаем домен БЕЗ TLD для точного сравнения
@@ -405,8 +304,7 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
                         "similarity": round(similarity, 2),
                         "domain_comparison": f"{domain_without_tld} vs {expected_without_tld}"
                     })
-                    subscore += 40
-                    break
+                    subscore = min(subscore + 40, 40)  # cap на одном бренде
 
     return subscore, flags
 
@@ -651,6 +549,20 @@ def compute_risk_score(
     score += tld_score
     details["tld"] = tld_details
     suspicious_tld = tld_details.get("suspicious_tld", False)
+
+    # Возраст домена через WHOIS
+    try:
+        hostname = urlparse(final_url).hostname or ""
+        domain_age_days = get_domain_age_days(hostname)
+    except Exception as e:
+        logger.debug("Не удалось определить возраст домена: %s", e)
+        domain_age_days = None
+
+    domain_age_details = {"age_days": domain_age_days, "young_domain": False}
+    if domain_age_days is not None and domain_age_days < 30:
+        score += 15
+        domain_age_details["young_domain"] = True
+    details["domain_age"] = domain_age_details
 
     # ========== ИСПРАВЛЕНИЕ: Проверка ОБОИХ URL для Brand Impersonation ==========
     
