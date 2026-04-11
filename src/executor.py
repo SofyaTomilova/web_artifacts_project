@@ -223,4 +223,4 @@ def run_batch(urls: Iterable[str], cfg: Config, run_dir: Path) -> None:
             except Exception as exc:
                 logger.error("Ошибка в потоке обработки URL: %s", exc)
     
-    logger.info("Обработка завершена")
+    logger.info("\x1b[32m✓ Обработка завершена\x1b[0m")
