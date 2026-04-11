@@ -408,9 +408,6 @@ td {{ padding: 0.6rem 0.75rem; border-bottom: 1px solid #f1f5f9; word-break: bre
   </table>
 </div>
 
-<div style="color:#94a3b8;font-size:0.78rem;text-align:center;margin-top:2rem;">
-  Сгенерировано программным комплексом web_artifacts_project
-</div>
 </body>
 </html>
 """

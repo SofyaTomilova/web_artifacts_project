@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
-from datetime import datetime
+from datetime import datetime, timezone
 
 from .metadata import load_metadata
 from .tranco_whitelist import is_in_tranco_top10k
@@ -22,7 +22,7 @@ KNOWN_BRANDS: Dict[str, Dict[str, Any]] = json.loads(_brands_path.read_text(enco
 # Подозрительные доменные зоны
 SUSPICIOUS_TLDS = {
     "xyz", "top", "icu", "click", "gq", "cf", "tk", "ml", "ga", "sbs",
-    "pw", "cc", "ws", "info", "biz",
+    "pw", "cc", "ws", "info", "biz", "me",
 }
 
 # Ключевые слова в HTML
@@ -117,7 +117,13 @@ def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any
         else:
             na_dt = None
 
-        now = datetime.utcnow()
+        now = datetime.now(tz=timezone.utc)
+
+        # Приводим naive datetime к timezone-aware
+        if nb_dt and nb_dt.tzinfo is None:
+            nb_dt = nb_dt.replace(tzinfo=timezone.utc)
+        if na_dt and na_dt.tzinfo is None:
+            na_dt = na_dt.replace(tzinfo=timezone.utc)
 
         if na_dt and now > na_dt:
             details["expired"] = True
@@ -202,7 +208,7 @@ def _analyze_opentip(opentip_data: Optional[Any]) -> Tuple[int, Dict[str, Any]]:
         score += 20
         details["raw_flags"].append("suspicious")
 
-    if "clean" in raw or "benign" in raw:
+    if re.search(r'\bclean\b', raw) or re.search(r'\bbenign\b', raw):
         score -= 10
         details["raw_flags"].append("clean_or_benign")
 
@@ -254,11 +260,12 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
             continue
 
         # 3. Substring match с защитой от коротких слов
+        # Для коротких брендов (< 4 символов) — проверяем совпадение целого сегмента домена
         if len(brand) < 4:
-            pattern = r'\b' + re.escape(brand) + r'\b'
-            if not re.search(pattern, hostname_clean):
+            segments = hostname_clean.split('.')
+            if brand not in segments:
                 continue
-        
+
         if brand in hostname_clean:
             is_legitimate = False
             for expected_domain in expected_domains:
@@ -276,13 +283,13 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
                 })
                 subscore = min(subscore + 40, 40)  # cap на одном бренде
 
-        # 4. ========== ИСПРАВЛЕНИЕ: Typosquatting БЕЗ TLD ==========
-        # Извлекаем домен БЕЗ TLD для точного сравнения
+        # 4. Typosquatting БЕЗ TLD
         parts = hostname_clean.split('.')
-        if len(parts) >= 2:
-            domain_without_tld = parts[-2]  # "steamcommunitty" из "steamcommunitty.cc"
-        else:
-            domain_without_tld = hostname_clean
+        if len(parts) < 2:
+            continue  # нечего сравнивать — пропускаем
+        domain_without_tld = parts[-2]
+        if len(domain_without_tld) < 4:
+            continue  # слишком короткий сегмент — пропускаем
 
         for expected_domain in expected_domains:
             # Извлекаем ожидаемый домен БЕЗ TLD
@@ -372,6 +379,12 @@ def _analyze_html(
     return score, details
 
 
+def _get_root_domain(hostname: str) -> str:
+    """Извлекает корневой домен: static.avito.ru → avito.ru"""
+    parts = hostname.lower().split('.')
+    return '.'.join(parts[-2:]) if len(parts) >= 2 else hostname
+
+
 def _analyze_network(
     network_data: Optional[Any],
     final_url: str,
@@ -391,6 +404,7 @@ def _analyze_network(
 
     total_requests = 0
     third_party_hosts = set()
+    main_root = _get_root_domain(main_host)
 
     for ev in network_data:
         msg = ev.get("message", {})
@@ -406,7 +420,11 @@ def _analyze_network(
             host = (urlparse(url).hostname or "").lower()
         except Exception:
             continue
-        if host and host != main_host:
+        if not host:
+            continue
+        # Сравниваем корневые домены, а не полные хосты
+        host_root = _get_root_domain(host)
+        if host_root != main_root:
             third_party_hosts.add(host)
 
     details["total_requests"] = total_requests
@@ -529,8 +547,23 @@ def compute_risk_score(
     score = 0
     details: Dict[str, Any] = {}
 
+    # Проверяем, является ли домен доверенным (Tranco Top-10k)
+    try:
+        final_hostname = urlparse(final_url).hostname or ""
+        is_trusted_domain = is_in_tranco_top10k(final_hostname)
+    except Exception:
+        is_trusted_domain = False
+
     # SSL-анализ
     ssl_score, ssl_details = _analyze_ssl(ssl_data)
+
+    # Для доменов из Tranco Top-10k SSL-ошибка верификации ≠ риск
+    # (может быть вызвана сетевым окружением, а не проблемой сертификата)
+    if is_trusted_domain and ssl_details.get("error"):
+        error_lower = (ssl_details.get("error") or "").lower()
+        if "certificate" in error_lower or "ssl error" in error_lower:
+            ssl_score = min(ssl_score, 5)
+
     score += ssl_score
     details["ssl"] = ssl_details
 

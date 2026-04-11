@@ -1,2 +1,10 @@
-http://sberbank.phishing-test.xyz
-https://cyberleninka.ru/article/n/o-suschnosti-tsifrovyh-sledov-v-kriminalistike-i-ih-fiksatsii/viewer
+https://tinkoff-support.info        # brand abuse + .info TLD
+https://sberrbank.ru                # typosquatting
+https://gosuslugi-online.ru         # brand abuse
+https://avito-kupit.ru              # brand abuse
+https://sberbank-online.net         # brand abuse
+https://tinkoff-lichnyj-kabinet.ru  # brand abuse
+https://gosuslugi.best              # brand abuse + подозрительный TLD
+https://qiwi-payment.com            # brand abuse
+https://wildberries-sale.ru         # brand abuse
+https://vk-login.me        
