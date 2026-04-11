@@ -1,0 +1,21 @@
+.env
+# Виртуальное окружение
+venv/
+env/
+ENV/
+
+# Файл с секретными ключами
+.env
+
+# Результаты работы программы
+results/
+
+# Python кэш
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# macOS
+.DS_Store

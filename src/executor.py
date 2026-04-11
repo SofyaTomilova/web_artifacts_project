@@ -200,15 +200,9 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
         close_driver(driver)
 
 
+
 def run_batch(urls: Iterable[str], cfg: Config, run_dir: Path) -> None:
-    """
-    Запускает пакетную обработку URL в нескольких потоках.
-    
-    Args:
-        urls: Итератор/список URL для обработки
-        cfg: Конфигурация приложения
-        run_dir: Директория для сохранения результатов
-    """
+  
     url_list = list(urls)
     if not url_list:
         logger.warning("Список URL пуст, нечего обрабатывать")
