@@ -201,14 +201,17 @@ def _analyze_opentip(opentip_data: Optional[Any]) -> Tuple[int, Dict[str, Any]]:
         return 5, details
 
     score = 0
-    if "malicious" in raw or "phishing" in raw:
+    is_malicious = "malicious" in raw or "phishing" in raw
+
+    if is_malicious:
         score += 40
         details["raw_flags"].append("malicious_or_phishing")
     elif "suspicious" in raw:
         score += 20
         details["raw_flags"].append("suspicious")
 
-    if re.search(r'\bclean\b', raw) or re.search(r'\bbenign\b', raw):
+    # clean снижает балл только если нет признаков угрозы
+    if not is_malicious and (re.search(r'\bclean\b', raw) or re.search(r'\bbenign\b', raw)):
         score -= 10
         details["raw_flags"].append("clean_or_benign")
 
@@ -251,6 +254,8 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
         expected_domains = brand_info["expected_domains"]
         legitimate_variations = brand_info.get("legitimate_variations", [])
 
+        brand_already_flagged = False
+
         # 1. Проверка exact match
         if hostname_clean in expected_domains:
             continue
@@ -272,7 +277,7 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
                 if hostname_clean.endswith(expected_domain):
                     is_legitimate = True
                     break
-            
+
             if not is_legitimate:
                 flags.append({
                     "brand": brand,
@@ -282,36 +287,38 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
                     "similarity": 1.0
                 })
                 subscore = min(subscore + 40, 40)  # cap на одном бренде
+                brand_already_flagged = True
 
-        # 4. Typosquatting БЕЗ TLD
-        parts = hostname_clean.split('.')
-        if len(parts) < 2:
-            continue  # нечего сравнивать — пропускаем
-        domain_without_tld = parts[-2]
-        if len(domain_without_tld) < 4:
-            continue  # слишком короткий сегмент — пропускаем
+        # 4. Typosquatting БЕЗ TLD — только если substring не сработал
+        if not brand_already_flagged:
+            parts = hostname_clean.split('.')
+            if len(parts) < 2:
+                continue  # нечего сравнивать — пропускаем
+            domain_without_tld = parts[-2]
+            if len(domain_without_tld) < 4:
+                continue  # слишком короткий сегмент — пропускаем
 
-        for expected_domain in expected_domains:
-            # Извлекаем ожидаемый домен БЕЗ TLD
-            expected_parts = expected_domain.split('.')
-            expected_without_tld = expected_parts[-2] if len(expected_parts) >= 2 else expected_domain
-            
-            # Сравниваем ТОЛЬКО домены (БЕЗ TLD)
-            similarity = difflib.SequenceMatcher(None, domain_without_tld, expected_without_tld).ratio()
-            len_ratio = min(len(domain_without_tld), len(expected_without_tld)) / max(len(domain_without_tld), len(expected_without_tld))
+            for expected_domain in expected_domains:
+                # Извлекаем ожидаемый домен БЕЗ TLD
+                expected_parts = expected_domain.split('.')
+                expected_without_tld = expected_parts[-2] if len(expected_parts) >= 2 else expected_domain
 
-            # Typosquatting: высокое сходство + близкая длина
-            if similarity >= 0.80 and len_ratio > 0.75:
-                if domain_without_tld != expected_without_tld:
-                    flags.append({
-                        "brand": brand,
-                        "hostname": hostname,
-                        "expected_domain": expected_domain,
-                        "match_type": "typosquatting",
-                        "similarity": round(similarity, 2),
-                        "domain_comparison": f"{domain_without_tld} vs {expected_without_tld}"
-                    })
-                    subscore = min(subscore + 40, 40)  # cap на одном бренде
+                # Сравниваем ТОЛЬКО домены (БЕЗ TLD)
+                similarity = difflib.SequenceMatcher(None, domain_without_tld, expected_without_tld).ratio()
+                len_ratio = min(len(domain_without_tld), len(expected_without_tld)) / max(len(domain_without_tld), len(expected_without_tld))
+
+                # Typosquatting: высокое сходство + близкая длина
+                if similarity >= 0.80 and len_ratio > 0.75:
+                    if domain_without_tld != expected_without_tld:
+                        flags.append({
+                            "brand": brand,
+                            "hostname": hostname,
+                            "expected_domain": expected_domain,
+                            "match_type": "typosquatting",
+                            "similarity": round(similarity, 2),
+                            "domain_comparison": f"{domain_without_tld} vs {expected_without_tld}"
+                        })
+                        subscore = min(subscore + 40, 40)  # cap на одном бренде
 
     return subscore, flags
 
