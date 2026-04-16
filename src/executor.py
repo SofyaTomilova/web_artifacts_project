@@ -18,10 +18,9 @@ from .threat_intel import (
 
 try:
     from tqdm import tqdm
-except Exception:  # noqa: BLE001
-    tqdm = None  # type: ignore[assignment]
+except Exception:  
+    tqdm = None 
 
-# ========== ИЗМЕНЕНИЕ 1: Импортируем новую функцию ==========
 from .browser import create_driver, close_driver, load_url_with_timeout_handling
 from .config import Config
 from .metadata import write_metadata
@@ -34,32 +33,21 @@ logger = logging.getLogger(__name__)
 
 
 def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
-    """
-    Обрабатывает один URL:
-    - загружает страницу в браузере (с обработкой timeout);
-    - сохраняет визуальные и сетевые артефакты;
-    - опрашивает TLS-сертификат;
-    - вызывает VirusTotal и Kaspersky OpenTIP;
-    - считает сводный скоринг и сохраняет его в *.score.json.
-    
-    НОВОЕ: При TimeoutException продолжает работу с частично загруженной страницей.
-    """
+
     driver = None
     original_url = url
     final_url = url
     base_path: Optional[Path] = None
-    load_success = False  # НОВОЕ: флаг успешности загрузки
-    load_message = "Not attempted"  # НОВОЕ: сообщение о результате загрузки
+    load_success = False  
+    load_message = "Not attempted"  
 
     try:
-        # ========== ИЗМЕНЕНИЕ 2: Создание драйвера с кастомным timeout ==========
         driver = create_driver(
-            headless=True,  # Используем headless из cfg, если нужно
+            headless=True, 
             performance_logging=True,
             page_load_timeout=cfg.timeout if hasattr(cfg, 'timeout') else 45,
         )
 
-        # ========== ИЗМЕНЕНИЕ 3: Загрузка URL с обработкой timeout ==========
         logger.info("Загрузка URL: %s", url)
         load_success, load_message = load_url_with_timeout_handling(driver, url)
 
@@ -73,37 +61,32 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
         else:
             logger.info("URL успешно загружен: %s", url)
 
-        # Получаем финальный URL (даже при timeout может быть доступен)
         try:
             final_url = driver.current_url
             logger.info("Фактический URL после редиректов: %s", final_url)
         except Exception as exc:
             logger.warning("Не удалось получить current_url: %s", exc)
-            final_url = url  # Используем исходный URL
+            final_url = url  
 
-        # Проверка редиректа
         if cfg.check_redirection and final_url != url:
             logger.info("Обнаружен редирект: %s -> %s", url, final_url)
 
-        # Создание базового пути для артефактов
         base_path = make_base_path(final_url, run_dir)
         run_dir_for_score = base_path.parent
         base_name = base_path.name
 
-        # ========== ИЗМЕНЕНИЕ 4: Сохранение метаданных с флагом load_success ==========
         try:
             write_metadata(
                 run_dir_for_score,
                 base_name,
                 original_url,
                 final_url,
-                load_success=load_success,  # НОВОЕ: фиксируем успешность загрузки
-                load_message=load_message,  # НОВОЕ: сообщение об ошибке/успехе
+                load_success=load_success,  
+                load_message=load_message,  
             )
         except Exception as exc:
             logger.warning("Не удалось сохранить метаданные для %s: %s", final_url, exc)
 
-        # ========== Сохранение визуальных артефактов (работает даже при timeout) ==========
         if cfg.capture_screenshot:
             try:
                 save_screenshot(driver, base_path)
@@ -116,7 +99,6 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
             except Exception as exc:
                 logger.warning("Не удалось сохранить HTML для %s: %s", final_url, exc)
 
-        # ========== Сетевые артефакты + SSL ==========
         ssl_info_data = None
         if cfg.capture_artifacts:
             try:
@@ -139,7 +121,6 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
             else:
                 logger.warning("Не удалось извлечь имя хоста из URL: %s", final_url)
 
-        # ========== VirusTotal ==========
         vt_result = None
         vt_key = get_vt_api_key()
         if vt_key:
@@ -156,7 +137,6 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
         else:
             logger.debug("VT_API_KEY не задан, VirusTotal не вызывается")
 
-        # ========== Kaspersky OpenTIP ==========
         opentip_key = get_opentip_api_key()
         opentip_result = None
         hostname = extract_hostname(final_url)
@@ -174,7 +154,6 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
         elif not opentip_key:
             logger.debug("OPENTIP_API_KEY не задан, OpenTIP не вызывается")
 
-        # ========== Риск-скоринг ==========
         try:
             score_data = compute_risk_score(
                 run_dir_for_score,
@@ -227,7 +206,6 @@ def run_batch(urls: Iterable[str], cfg: Config, run_dir: Path) -> None:
 
     logger.info("Обработка завершена")
 
-    # ── НОВОЕ: сбор score_data всех URL и вывод итогов ───────────────────
     all_scores: list = []
     for score_file in sorted(run_dir.rglob("*.score.json")):
         try:
@@ -239,16 +217,15 @@ def run_batch(urls: Iterable[str], cfg: Config, run_dir: Path) -> None:
     if not all_scores:
         return
 
-    # ── Подсчёт статистики ────────────────────────────────────────────────
     total     = len(all_scores)
-    malicious = [s for s in all_scores if s.get("verdict") == "malicious"]
-    suspicious = [s for s in all_scores if s.get("verdict") == "suspicious"]
+    malicious = [s for s in all_scores if s.get("verdict") == "Вредоносный"]
+    suspicious = [s for s in all_scores if s.get("verdict") == "Подозрительный"]
 
     logger.info("=" * 60)
     logger.info("ИТОГО ПРОВЕРЕНО:      %d URL", total)
-    logger.info("✅ Легитимных:        %d", total - len(malicious) - len(suspicious))
-    logger.info("⚠️  Подозрительных:   %d", len(suspicious))
-    logger.info("🚨 Вредоносных:       %d", len(malicious))
+    logger.info("Легитимных:        %d", total - len(malicious) - len(suspicious))
+    logger.info("Подозрительных:   %d", len(suspicious))
+    logger.info("Вредоносных:       %d", len(malicious))
 
     if malicious:
         logger.info("-" * 60)
@@ -272,13 +249,11 @@ def run_batch(urls: Iterable[str], cfg: Config, run_dir: Path) -> None:
 
     logger.info("=" * 60)
 
-    # ── Сводный HTML-отчёт ────────────────────────────────────────────────
     try:
         summary_path = run_dir / "summary_report.html"
         generate_summary_report(all_scores, summary_path)
         logger.info("Сводный HTML-отчёт сохранён: %s", summary_path)
 
-        # Автоматическое открытие в браузере
         try:
             webbrowser.open(summary_path.resolve().as_uri())
             logger.info("Сводный отчёт открыт в браузере")

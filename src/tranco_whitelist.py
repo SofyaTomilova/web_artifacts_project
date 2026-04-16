@@ -1,13 +1,3 @@
-"""
-Tranco Top-10k whitelist.
-
-Домены из топ-10 000 самых популярных доменов по версии tranco-list.eu
-с высокой вероятностью легитимны. Если hostname входит в этот список —
-_detect_brand_abuse сразу возвращает 0, не запуская проверки.
-
-CSV-файл скачивается один раз при установке.
-"""
-
 import logging
 from pathlib import Path
 from typing import Optional, Set

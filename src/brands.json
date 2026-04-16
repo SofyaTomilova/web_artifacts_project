@@ -3,6 +3,10 @@
         "expected_domains": ["sberbank.ru", "sberbank.com", "online.sberbank.ru"],
         "legitimate_variations": ["sber.ru", "beta.sberbank.ru"]
     },
+    "sber": {
+        "expected_domains": ["sber.ru"],
+        "legitimate_variations": []
+    },
     "tinkoff": {
         "expected_domains": ["tinkoff.ru", "tbank.ru", "lk.tinkoff.ru"],
         "legitimate_variations": []

@@ -6,12 +6,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-
-# ─── Цвета по вердикту ────────────────────────────────────────────────────────
 _VERDICT_COLOR = {
-    "legitimate":  ("#22c55e", "#dcfce7", "✅ Легитимный"),
-    "suspicious":  ("#f59e0b", "#fef9c3", "⚠️ Подозрительный"),
-    "malicious":   ("#ef4444", "#fee2e2", "🚨 Вредоносный / Фишинг"),
+    "Легитимный":  ("#22c55e", "#dcfce7", "Легитимный"),
+    "Подозрительный":  ("#f59e0b", "#fef9c3", "Подозрительный"),
+    "Вредоносный":   ("#ef4444", "#fee2e2", "Вредоносный / Фишинг"),
 }
 
 _BASE_CSS = """
@@ -42,8 +40,6 @@ tr:hover td { background: #1e293b44; }
 .reasons li { margin: 0.3rem 0 0.3rem 1.2rem; font-size: 0.88rem; color: #cbd5e1; }
 a { color: #60a5fa; }
 """
-
-
 def _verdict_html(verdict: str, score: int) -> str:
     color, bg, label = _VERDICT_COLOR.get(
         verdict, ("#94a3b8", "#1e293b", verdict)
@@ -66,7 +62,6 @@ def _extract_reasons(details: Dict[str, Any]) -> List[str]:
     """Извлекает причины риска из details скоринга."""
     reasons: List[str] = []
 
-    # SSL
     ssl = details.get("ssl", {})
     if ssl.get("expired"):
         reasons.append("SSL-сертификат истёк")
@@ -79,13 +74,11 @@ def _extract_reasons(details: Dict[str, Any]) -> List[str]:
     if ssl.get("error") and not ssl.get("present"):
         reasons.append("SSL-сертификат отсутствует или ошибка подключения")
 
-    # VirusTotal
     vt = details.get("virustotal", {})
     vt_pos = vt.get("vt_positives")
     if vt_pos and vt_pos > 0:
         reasons.append(f"VirusTotal: {vt_pos} срабатываний")
 
-    # OpenTIP
     ot = details.get("opentip", {})
     ot_flags = ot.get("raw_flags", [])
     if "malicious_or_phishing" in ot_flags:
@@ -93,12 +86,10 @@ def _extract_reasons(details: Dict[str, Any]) -> List[str]:
     elif "suspicious" in ot_flags:
         reasons.append("Kaspersky OpenTIP: подозрительный")
 
-    # TLD
     tld = details.get("tld", {})
     if tld.get("suspicious_tld"):
         reasons.append(f"Подозрительная доменная зона: .{tld.get('tld', '')}")
 
-    # Brand abuse
     brand_flags = details.get("brand_abuse_flags", [])
     if brand_flags:
         for flag in brand_flags:
@@ -106,18 +97,15 @@ def _extract_reasons(details: Dict[str, Any]) -> List[str]:
             mtype = flag.get("match_type", "")
             reasons.append(f"Имитация бренда: {brand} ({mtype})")
 
-    # Redirect
     redirect = details.get("redirect", {})
     if redirect.get("suspicious_redirect"):
         reasons.append(f"Подозрительный редирект на {redirect.get('redirect_scheme', '?')}")
 
-    # Domain age
     domain_age = details.get("domain_age", {})
     if domain_age.get("young_domain"):
         age = domain_age.get("age_days", "?")
         reasons.append(f"Домен зарегистрирован менее 30 дней назад (возраст: {age} дн.)")
 
-    # HTML
     html = details.get("html", {})
     if html.get("has_password_input") and html.get("suspicious_context"):
         reasons.append("Форма ввода пароля в подозрительном контексте")
@@ -126,9 +114,7 @@ def _extract_reasons(details: Dict[str, Any]) -> List[str]:
 
     return reasons
 
-
 def _extract_components(details: Dict[str, Any]) -> Dict[str, str]:
-    """Формирует читаемые компоненты оценки."""
     components: Dict[str, str] = {}
 
     ssl = details.get("ssl", {})
@@ -154,7 +140,7 @@ def _extract_components(details: Dict[str, Any]) -> Dict[str, str]:
     tld = details.get("tld", {})
     tld_val = tld.get("tld", "?")
     if tld.get("suspicious_tld"):
-        tld_val += " ⚠️ подозрительная"
+        tld_val += " (подозрительная)"
     components["Доменная зона (TLD)"] = tld_val
 
     brand_flags = details.get("brand_abuse_flags", [])
@@ -178,7 +164,7 @@ def _extract_components(details: Dict[str, Any]) -> Dict[str, str]:
     if age_days is not None:
         components["Возраст домена"] = f"{age_days} дн."
         if domain_age.get("young_domain"):
-            components["Возраст домена"] += " ⚠️ менее 30 дней"
+            components["Возраст домена"] += " (менее 30 дней)"
     else:
         components["Возраст домена"] = "Нет данных (WHOIS недоступен)"
 
@@ -202,11 +188,6 @@ def _extract_components(details: Dict[str, Any]) -> Dict[str, str]:
 
 
 def generate_html_report(score_data: dict, output_path: Path) -> None:
-    """
-    Генерирует HTML-отчёт для одного URL на основе score_data.
-    Сохраняет файл по пути output_path.
-    """
-    # Адаптация: compute_risk_score возвращает risk_score/original_url/details
     url = score_data.get("url") or score_data.get("original_url", "—")
     final_url = score_data.get("final_url", url)
     score = score_data.get("score") or score_data.get("risk_score", 0)
@@ -217,12 +198,10 @@ def generate_html_report(score_data: dict, output_path: Path) -> None:
     reasons = score_data.get("reasons") or _extract_reasons(details)
     components = score_data.get("components") or _extract_components(details)
 
-    # ── Детали компонентов ──────────────────────────────────────────────────
     comp_rows = ""
     for key, val in components.items():
         comp_rows += f"<tr><td>{key}</td><td>{val}</td></tr>"
 
-    # ── Причины ────────────────────────────────────────────────────────────
     reasons_html = ""
     if reasons:
         items = "".join(f"<li>{r}</li>" for r in reasons)
@@ -277,7 +256,7 @@ def generate_summary_report(all_scores: list, output_path: Path) -> None:
     all_scores — список score_data для каждого URL.
     """
     total = len(all_scores)
-    counts = {"legitimate": 0, "suspicious": 0, "malicious": 0}
+    counts = {"Легитимный": 0, "Подозрительный": 0, "Вредоносный": 0}
     for s in all_scores:
         v = s.get("verdict", "unknown")
         if v in counts:
@@ -285,19 +264,17 @@ def generate_summary_report(all_scores: list, output_path: Path) -> None:
 
     timestamp = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
-    # ── Цвета для светлой темы ────────────────────────────────────────────
     _LIGHT_VERDICT = {
-        "legitimate":  ("#16a34a", "#dcfce7", "#f0fdf4"),
-        "suspicious":  ("#d97706", "#fef3c7", "#fffbeb"),
-        "malicious":   ("#dc2626", "#fee2e2", "#fef2f2"),
+        "Легитимный":  ("#16a34a", "#dcfce7", "#f0fdf4"),
+        "Подозрительный":  ("#d97706", "#fef3c7", "#fffbeb"),
+        "Вредоносный":   ("#dc2626", "#fee2e2", "#fef2f2"),
     }
 
-    # ── Сводная статистика ──────────────────────────────────────────────────
     stat_cards = ""
-    for verdict_key, label_emoji in [
-        ("legitimate",  "✅ Легитимных"),
-        ("suspicious",  "⚠️ Подозрительных"),
-        ("malicious",   "🚨 Вредоносных"),
+    for verdict_key, label in [
+        ("Легитимный",  "Легитимных"),
+        ("Подозрительный",  "Подозрительных"),
+        ("Вредоносный",   "Вредоносных"),
     ]:
         color, bg, border_bg = _LIGHT_VERDICT[verdict_key]
         n = counts[verdict_key]
@@ -306,12 +283,11 @@ def generate_summary_report(all_scores: list, output_path: Path) -> None:
         <div style="background:{border_bg};border:2px solid {color};border-radius:12px;
                     padding:1.2rem 1.5rem;flex:1;min-width:160px;text-align:center;">
           <div style="font-size:2.2rem;font-weight:900;color:{color}">{n}</div>
-          <div style="color:#64748b;font-size:0.9rem;font-weight:600">{label_emoji}</div>
+          <div style="color:#64748b;font-size:0.9rem;font-weight:600">{label}</div>
           <div style="color:{color};font-size:0.85rem;font-weight:500">{pct}% от {total}</div>
         </div>"""
 
-    # ── Список сайтов, требующих допроверки (suspicious) ──────────────────
-    manual_review = [s for s in all_scores if s.get("verdict") == "suspicious"]
+    manual_review = [s for s in all_scores if s.get("verdict") == "Подозрительный"]
     review_html = ""
     if manual_review:
         review_items = ""
@@ -331,11 +307,10 @@ def generate_summary_report(all_scores: list, output_path: Path) -> None:
             </div>"""
         review_html = f"""
         <div class="card" style="border:2px solid #f59e0b;">
-          <h2 style="color:#d97706;">⚠️ Требуют ручной допроверки ({len(manual_review)})</h2>
+          <h2 style="color:#d97706;">Требуют ручной допроверки ({len(manual_review)})</h2>
           {review_items}
         </div>"""
 
-    # ── Таблица всех URL ────────────────────────────────────────────────────
     sorted_scores = sorted(
         all_scores,
         key=lambda x: x.get("score", x.get("risk_score", 0)),
