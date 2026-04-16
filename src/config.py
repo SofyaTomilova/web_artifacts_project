@@ -16,17 +16,13 @@ class Config:
     capture_artifacts: bool = True
     save_page_copy: bool = True
     check_redirection: bool = True
-    capture_screenshot: bool = True  # скриншоты всегда полезны
+    capture_screenshot: bool = True  
 
     output_root: str = "results"
 
 
 def config_from_args(args) -> Config:
-    """
-    Формирует объект Config на основе аргументов командной строки.
-    Аргументы задают начальные значения, которые затем можно
-    скорректировать в интерактивном диалоге.
-    """
+
     cfg = Config()
 
     if getattr(args, "input", None):
@@ -62,7 +58,7 @@ def _ask_yes_no(prompt: str, current: bool) -> bool:
         return True
     if answer in ("n", "no", "н", "нет", "0"):
         return False
-    # Пустой или непонятный ввод — оставляем текущее значение
+    
     return current
 
 

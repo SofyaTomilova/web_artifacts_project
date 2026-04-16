@@ -180,8 +180,6 @@ def process_single_url(url: str, cfg: Config, run_dir: Path) -> None:
     finally:
         close_driver(driver)
 
-
-
 def run_batch(urls: Iterable[str], cfg: Config, run_dir: Path) -> None:
 
     url_list = list(urls)

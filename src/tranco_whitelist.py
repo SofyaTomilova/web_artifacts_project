@@ -9,12 +9,6 @@ TRANCO_WHITELIST: Set[str] = set()
 
 
 def load_tranco_whitelist(csv_path: Optional[Path] = None) -> Set[str]:
-    """
-    Загружает Tranco Top-10k в множество для быстрого поиска.
-
-    Формат CSV: rank,domain
-    Пример: 1,google.com
-    """
     global TRANCO_WHITELIST
     path = csv_path or TRANCO_CSV_PATH
 
@@ -36,7 +30,7 @@ def load_tranco_whitelist(csv_path: Optional[Path] = None) -> Set[str]:
                 line = line.strip()
                 if not line:
                     continue
-                # Формат: rank,domain
+                
                 parts = line.split(",", 1)
                 if len(parts) == 2:
                     domain = parts[1].lower().strip()

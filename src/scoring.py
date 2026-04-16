@@ -33,7 +33,6 @@ PAYMENT_KEYWORDS = [
     "номер карты", "cvv", "cvc",
 ]
 
-
 def _load_json_if_exists(path: Path) -> Optional[Any]:
     if not path.exists():
         return None
@@ -54,7 +53,6 @@ def _load_html_if_exists(path: Path) -> Optional[str]:
     except Exception as e:
         logger.warning("Не удалось прочитать HTML %s: %s", path, e)
         return None
-
 
 def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]:
     details = {
@@ -142,7 +140,6 @@ def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any
         score += 15
 
     return score, details
-
 
 def _analyze_vt(vt_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]:
     """Анализ данных VirusTotal."""
@@ -437,7 +434,6 @@ def _analyze_redirect(original_url: str, final_url: str) -> Tuple[int, Dict[str,
         return 10, details
     
     return 0, details
-
 
 def compute_risk_score(
     run_dir: Path,

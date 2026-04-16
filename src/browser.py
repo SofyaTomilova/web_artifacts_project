@@ -14,7 +14,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 logger = logging.getLogger(__name__)
 
-
 def create_driver(
     headless: bool = True,
     performance_logging: bool = True,
@@ -58,13 +57,13 @@ def load_url_with_timeout_handling(
 
     try:
         driver.get(url)
-        # Даём время для динамического контента
+        
         time.sleep(2)
         return True, "Page loaded successfully"
 
     except TimeoutException:
-        # Страница не успела полностью загрузиться,
-        # но часть контента может быть доступна
+        
+        
         logger.warning("Тайм-аут загрузки страницы: %s", url)
         return False, "Timeout"
 
