@@ -3,7 +3,10 @@
     "allow": [
       "Bash(source *)",
       "Bash(pip install *)",
-      "Bash(python *)"
+      "Bash(python *)",
+      "Bash(curl *)",
+      "Bash(unzip *)",
+      "Bash(head *)"
     ]
   },
   "$version": 3

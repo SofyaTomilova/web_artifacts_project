@@ -1,6 +1,3 @@
-"""
-Модуль для работы с Selenium WebDriver.
-"""
 from __future__ import annotations
 
 import logging
@@ -17,15 +14,12 @@ from selenium.webdriver.support import expected_conditions as EC
 
 logger = logging.getLogger(__name__)
 
-
 def create_driver(
     headless: bool = True,
     performance_logging: bool = True,
     page_load_timeout: int = 45,
 ) -> webdriver.Chrome:
-    """
-    Создаёт и настраивает экземпляр Chrome WebDriver.
-    """
+
     options = Options()
     if headless:
         options.add_argument("--headless=new")
@@ -47,9 +41,7 @@ def create_driver(
 
 
 def close_driver(driver: Optional[webdriver.Chrome]) -> None:
-    """
-    Безопасно закрывает WebDriver.
-    """
+
     if driver is None:
         return
     try:
@@ -62,23 +54,16 @@ def load_url_with_timeout_handling(
     driver: webdriver.Chrome,
     url: str,
 ) -> Tuple[bool, str]:
-    """
-    Загружает URL в браузере.
 
-    Возвращает кортеж (success: bool, message: str):
-    - (True, "Page loaded successfully") — страница загружена
-    - (False, "Timeout") — тайм-аут, но страница может быть частично загружена
-    - (False, "Error: ...") — другая ошибка
-    """
     try:
         driver.get(url)
-        # Даём время для динамического контента
+        
         time.sleep(2)
         return True, "Page loaded successfully"
 
     except TimeoutException:
-        # Страница не успела полностью загрузиться,
-        # но часть контента может быть доступна
+        
+        
         logger.warning("Тайм-аут загрузки страницы: %s", url)
         return False, "Timeout"
 

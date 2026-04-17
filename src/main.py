@@ -64,25 +64,14 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-
-    # Сначала настраиваем логирование
     setup_logging(args.log_file)
-
-    # Базовая конфигурация из аргументов
     cfg = config_from_args(args)
-
-    # Интерактивный диалог с пользователем (capture_artifacts, save_page_copy,
-    # check_redirection, timeout, num_threads).
     cfg = interactive_update_config(cfg)
-
     logger.info("Загрузка списка URL из файла: %s", cfg.input_file)
     urls = load_urls(cfg.input_file)
-
     run_dir = create_run_directory(cfg.output_root)
     logger.info("Директория запуска: %s", run_dir)
-
     run_batch(urls, cfg, run_dir)
-
 
 if __name__ == "__main__":
     main()

@@ -9,10 +9,7 @@ from typing import Iterable
 
 
 def load_urls(path: str | Path) -> list[str]:
-    """
-    Загружает список URL из текстового файла (один URL на строку).
-    Пустые строки и строки, начинающиеся с '#', игнорируются.
-    """
+
     file_path = Path(path)
     if not file_path.exists():
         raise FileNotFoundError(f"Файл со списком URL не найден: {file_path}")
@@ -28,10 +25,7 @@ def load_urls(path: str | Path) -> list[str]:
 
 
 def create_run_directory(root: str | Path) -> Path:
-    """
-    Создаёт директорию для текущего запуска с меткой времени.
-    Например: results/run_2025-12-04_11-23-00
-    """
+
     root_path = Path(root)
     root_path.mkdir(parents=True, exist_ok=True)
 
@@ -40,7 +34,6 @@ def create_run_directory(root: str | Path) -> Path:
     run_dir.mkdir(parents=True, exist_ok=True)
 
     return run_dir
-
 
 def extract_hostname(url: str) -> str:
     parsed = urlparse(url)

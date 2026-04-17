@@ -1,13 +1,3 @@
-"""
-Tranco Top-10k whitelist.
-
-Домены из топ-10 000 самых популярных доменов по версии tranco-list.eu
-с высокой вероятностью легитимны. Если hostname входит в этот список —
-_detect_brand_abuse сразу возвращает 0, не запуская проверки.
-
-CSV-файл скачивается один раз при установке.
-"""
-
 import logging
 from pathlib import Path
 from typing import Optional, Set
@@ -19,12 +9,6 @@ TRANCO_WHITELIST: Set[str] = set()
 
 
 def load_tranco_whitelist(csv_path: Optional[Path] = None) -> Set[str]:
-    """
-    Загружает Tranco Top-10k в множество для быстрого поиска.
-
-    Формат CSV: rank,domain
-    Пример: 1,google.com
-    """
     global TRANCO_WHITELIST
     path = csv_path or TRANCO_CSV_PATH
 
@@ -46,7 +30,7 @@ def load_tranco_whitelist(csv_path: Optional[Path] = None) -> Set[str]:
                 line = line.strip()
                 if not line:
                     continue
-                # Формат: rank,domain
+                
                 parts = line.split(",", 1)
                 if len(parts) == 2:
                     domain = parts[1].lower().strip()

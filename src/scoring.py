@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
-from datetime import datetime
+from datetime import datetime, timezone
 
 from .metadata import load_metadata
 from .tranco_whitelist import is_in_tranco_top10k
@@ -15,17 +15,14 @@ from .domain_age import get_domain_age_days
 
 logger = logging.getLogger(__name__)
 
-# ========== ИЗВЕСТНЫЕ БРЕНДЫ (загружаются из brands.json) ==========
 _brands_path = Path(__file__).parent / "brands.json"
 KNOWN_BRANDS: Dict[str, Dict[str, Any]] = json.loads(_brands_path.read_text(encoding="utf-8")) if _brands_path.exists() else {}
 
-# Подозрительные доменные зоны
 SUSPICIOUS_TLDS = {
     "xyz", "top", "icu", "click", "gq", "cf", "tk", "ml", "ga", "sbs",
-    "pw", "cc", "ws", "info", "biz",
+    "pw", "cc", "ws", "info", "biz", "me",
 }
 
-# Ключевые слова в HTML
 LOGIN_KEYWORDS = [
     "login", "sign in", "sign-in", "signin", "log in",
     "логин", "войти", "вход", "личный кабинет", "кабинет клиента",
@@ -36,9 +33,7 @@ PAYMENT_KEYWORDS = [
     "номер карты", "cvv", "cvc",
 ]
 
-
 def _load_json_if_exists(path: Path) -> Optional[Any]:
-    """Загрузка JSON-файла, если он существует."""
     if not path.exists():
         return None
     try:
@@ -50,7 +45,6 @@ def _load_json_if_exists(path: Path) -> Optional[Any]:
 
 
 def _load_html_if_exists(path: Path) -> Optional[str]:
-    """Загрузка HTML-файла, если он существует."""
     if not path.exists():
         return None
     try:
@@ -60,9 +54,7 @@ def _load_html_if_exists(path: Path) -> Optional[str]:
         logger.warning("Не удалось прочитать HTML %s: %s", path, e)
         return None
 
-
 def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]:
-    """Анализ SSL/TLS сертификата."""
     details = {
         "present": False,
         "expired": None,
@@ -117,7 +109,12 @@ def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any
         else:
             na_dt = None
 
-        now = datetime.utcnow()
+        now = datetime.now(tz=timezone.utc)
+
+        if nb_dt and nb_dt.tzinfo is None:
+            nb_dt = nb_dt.replace(tzinfo=timezone.utc)
+        if na_dt and na_dt.tzinfo is None:
+            na_dt = na_dt.replace(tzinfo=timezone.utc)
 
         if na_dt and now > na_dt:
             details["expired"] = True
@@ -144,7 +141,6 @@ def _analyze_ssl(ssl_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any
 
     return score, details
 
-
 def _analyze_vt(vt_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]:
     """Анализ данных VirusTotal."""
     details = {
@@ -155,7 +151,6 @@ def _analyze_vt(vt_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]
     if not vt_data:
         return 0, details
 
-    # VirusTotal API v3: данные находятся в raw → data → attributes → last_analysis_stats
     stats = vt_data.get("raw", {}).get("data", {}).get("attributes", {}).get("last_analysis_stats", {})
 
     if not stats:
@@ -182,7 +177,6 @@ def _analyze_vt(vt_data: Optional[Dict[str, Any]]) -> Tuple[int, Dict[str, Any]]
 
 
 def _analyze_opentip(opentip_data: Optional[Any]) -> Tuple[int, Dict[str, Any]]:
-    """Анализ данных Kaspersky OpenTIP."""
     details: Dict[str, Any] = {
         "raw_flags": [],
     }
@@ -195,37 +189,21 @@ def _analyze_opentip(opentip_data: Optional[Any]) -> Tuple[int, Dict[str, Any]]:
         return 5, details
 
     score = 0
-    if "malicious" in raw or "phishing" in raw:
+    is_malicious = "malicious" in raw or "phishing" in raw
+
+    if is_malicious:
         score += 40
         details["raw_flags"].append("malicious_or_phishing")
     elif "suspicious" in raw:
         score += 20
         details["raw_flags"].append("suspicious")
 
-    if "clean" in raw or "benign" in raw:
-        score -= 10
+    if not is_malicious and ("clean" in raw or "benign" in raw):
         details["raw_flags"].append("clean_or_benign")
 
     return score, details
 
-
-# ========== ИСПРАВЛЕНИЕ 1: УЛУЧШЕННАЯ ФУНКЦИЯ _detect_brand_abuse ==========
 def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
-    """
-    Обнаружение имитации брендов (Brand Impersonation Detection).
-    
-    КРИТИЧЕСКИЕ ИСПРАВЛЕНИЯ:
-    1. Проверка ПОЛНОГО hostname (не только базового домена)
-    2. Substring match с защитой от ложных срабатываний
-    3. НОВОЕ: Typosquatting сравнивает домены БЕЗ TLD
-    4. Защита от коротких слов (< 4 символов)
-    
-    Примеры:
-    - avito.alsoma.com → +40 (substring)
-    - steamcommunitty.cc → +40 (typosquatting: steamcommunity → steamcommunitty)
-    - loopbroker.ltd → 0 (нет совпадений)
-    - pochta.ru → 0 (легитимная вариация)
-    """
     try:
         hostname = urlparse(final_url).hostname or ""
     except Exception:
@@ -234,7 +212,6 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
     hostname_lower = hostname.lower()
     hostname_clean = hostname_lower.replace('www.', '')
 
-    # Проверка Tranco Top-10k — домен из белого списка, пропускаем
     if is_in_tranco_top10k(hostname_clean):
         return 0, []
 
@@ -245,27 +222,26 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
         expected_domains = brand_info["expected_domains"]
         legitimate_variations = brand_info.get("legitimate_variations", [])
 
-        # 1. Проверка exact match
+        brand_already_flagged = False
+
         if hostname_clean in expected_domains:
             continue
 
-        # 2. Проверка легитимных вариаций
         if hostname_clean in legitimate_variations:
             continue
 
-        # 3. Substring match с защитой от коротких слов
         if len(brand) < 4:
-            pattern = r'\b' + re.escape(brand) + r'\b'
-            if not re.search(pattern, hostname_clean):
+            segments = hostname_clean.split('.')
+            if brand not in segments:
                 continue
-        
+
         if brand in hostname_clean:
             is_legitimate = False
             for expected_domain in expected_domains:
                 if hostname_clean.endswith(expected_domain):
                     is_legitimate = True
                     break
-            
+
             if not is_legitimate:
                 flags.append({
                     "brand": brand,
@@ -274,37 +250,35 @@ def _detect_brand_abuse(final_url: str) -> Tuple[int, List[Dict[str, Any]]]:
                     "match_type": "substring",
                     "similarity": 1.0
                 })
-                subscore = min(subscore + 40, 40)  # cap на одном бренде
+                subscore = min(subscore + 40, 40)  
+                brand_already_flagged = True
 
-        # 4. ========== ИСПРАВЛЕНИЕ: Typosquatting БЕЗ TLD ==========
-        # Извлекаем домен БЕЗ TLD для точного сравнения
-        parts = hostname_clean.split('.')
-        if len(parts) >= 2:
-            domain_without_tld = parts[-2]  # "steamcommunitty" из "steamcommunitty.cc"
-        else:
-            domain_without_tld = hostname_clean
+        if not brand_already_flagged:
+            parts = hostname_clean.split('.')
+            if len(parts) < 2:
+                continue  
+            domain_without_tld = parts[-2]
+            if len(domain_without_tld) < 4:
+                continue  
 
-        for expected_domain in expected_domains:
-            # Извлекаем ожидаемый домен БЕЗ TLD
-            expected_parts = expected_domain.split('.')
-            expected_without_tld = expected_parts[-2] if len(expected_parts) >= 2 else expected_domain
-            
-            # Сравниваем ТОЛЬКО домены (БЕЗ TLD)
-            similarity = difflib.SequenceMatcher(None, domain_without_tld, expected_without_tld).ratio()
-            len_ratio = min(len(domain_without_tld), len(expected_without_tld)) / max(len(domain_without_tld), len(expected_without_tld))
+            for expected_domain in expected_domains:
+                expected_parts = expected_domain.split('.')
+                expected_without_tld = expected_parts[-2] if len(expected_parts) >= 2 else expected_domain
 
-            # Typosquatting: высокое сходство + близкая длина
-            if similarity >= 0.80 and len_ratio > 0.75:
-                if domain_without_tld != expected_without_tld:
-                    flags.append({
-                        "brand": brand,
-                        "hostname": hostname,
-                        "expected_domain": expected_domain,
-                        "match_type": "typosquatting",
-                        "similarity": round(similarity, 2),
-                        "domain_comparison": f"{domain_without_tld} vs {expected_without_tld}"
-                    })
-                    subscore = min(subscore + 40, 40)  # cap на одном бренде
+                similarity = difflib.SequenceMatcher(None, domain_without_tld, expected_without_tld).ratio()
+                len_ratio = min(len(domain_without_tld), len(expected_without_tld)) / max(len(domain_without_tld), len(expected_without_tld))
+
+                if similarity >= 0.80 and len_ratio > 0.75:
+                    if domain_without_tld != expected_without_tld:
+                        flags.append({
+                            "brand": brand,
+                            "hostname": hostname,
+                            "expected_domain": expected_domain,
+                            "match_type": "typosquatting",
+                            "similarity": round(similarity, 2),
+                            "domain_comparison": f"{domain_without_tld} vs {expected_without_tld}"
+                        })
+                        subscore = min(subscore + 40, 40)  
 
     return subscore, flags
 
@@ -335,7 +309,6 @@ def _analyze_html(
     html_text: Optional[str],
     suspicious_context: bool,
 ) -> Tuple[int, Dict[str, Any]]:
-    """Контентный анализ HTML-кода."""
     details: Dict[str, Any] = {
         "has_password_input": False,
         "has_login_keywords": False,
@@ -372,11 +345,15 @@ def _analyze_html(
     return score, details
 
 
+def _get_root_domain(hostname: str) -> str:
+    parts = hostname.lower().split('.')
+    return '.'.join(parts[-2:]) if len(parts) >= 2 else hostname
+
+
 def _analyze_network(
     network_data: Optional[Any],
     final_url: str,
 ) -> Tuple[int, Dict[str, Any]]:
-    """Анализ сетевых артефактов."""
     details: Dict[str, Any] = {
         "total_requests": 0,
         "third_party_hosts": [],
@@ -391,6 +368,7 @@ def _analyze_network(
 
     total_requests = 0
     third_party_hosts = set()
+    main_root = _get_root_domain(main_host)
 
     for ev in network_data:
         msg = ev.get("message", {})
@@ -406,7 +384,10 @@ def _analyze_network(
             host = (urlparse(url).hostname or "").lower()
         except Exception:
             continue
-        if host and host != main_host:
+        if not host:
+            continue
+        host_root = _get_root_domain(host)
+        if host_root != main_root:
             third_party_hosts.add(host)
 
     details["total_requests"] = total_requests
@@ -425,17 +406,8 @@ def _analyze_network(
 
     return score, details
 
-
-# ========== ИСПРАВЛЕНИЕ 2: НОВАЯ ФУНКЦИЯ _analyze_redirect ==========
 def _analyze_redirect(original_url: str, final_url: str) -> Tuple[int, Dict[str, Any]]:
-    """
-    Анализ подозрительных редиректов.
-    
-    Логика начисления баллов:
-    - Редирект на data:, about:, javascript:, file: → +15
-    - Редирект на пустую страницу (data:,, about:blank) → +10
-    - Нормальный редирект → 0
-    """
+
     details: Dict[str, Any] = {
         "has_redirect": False,
         "suspicious_redirect": False,
@@ -447,7 +419,6 @@ def _analyze_redirect(original_url: str, final_url: str) -> Tuple[int, Dict[str,
     
     details["has_redirect"] = True
     
-    # Подозрительные схемы
     suspicious_schemes = ["data:", "about:", "javascript:", "file:"]
     
     for scheme in suspicious_schemes:
@@ -457,14 +428,12 @@ def _analyze_redirect(original_url: str, final_url: str) -> Tuple[int, Dict[str,
             logger.warning("Подозрительный редирект: %s → %s", original_url, final_url)
             return 15, details
     
-    # Редирект на пустую страницу
     if final_url in ("data:,", "about:blank"):
         details["suspicious_redirect"] = True
         details["redirect_scheme"] = "empty"
         return 10, details
     
     return 0, details
-
 
 def compute_risk_score(
     run_dir: Path,
@@ -478,7 +447,6 @@ def compute_risk_score(
     network_data: Optional[Any] = None,
     **kwargs,
 ) -> Dict[str, Any]:
-    """Основная функция расчета интегрального показателя риска."""
 
     if "original_url" in kwargs and original_url is None:
         original_url = kwargs["original_url"]
@@ -508,7 +476,6 @@ def compute_risk_score(
     if final_url is None:
         raise ValueError("final_url не удалось определить")
 
-    # Пути к артефактам
     ssl_path = run_dir / f"{base_name}.ssl.json"
     vt_path = run_dir / f"{base_name}.vt.json"
     opentip_path = run_dir / f"{base_name}.opentip.json"
@@ -529,28 +496,35 @@ def compute_risk_score(
     score = 0
     details: Dict[str, Any] = {}
 
-    # SSL-анализ
+    try:
+        final_hostname = urlparse(final_url).hostname or ""
+        is_trusted_domain = is_in_tranco_top10k(final_hostname)
+    except Exception:
+        is_trusted_domain = False
+
     ssl_score, ssl_details = _analyze_ssl(ssl_data)
+
+    if is_trusted_domain and ssl_details.get("error"):
+        error_lower = (ssl_details.get("error") or "").lower()
+        if "certificate" in error_lower or "ssl error" in error_lower:
+            ssl_score = min(ssl_score, 5)
+
     score += ssl_score
     details["ssl"] = ssl_details
 
-    # VirusTotal
     vt_score, vt_details = _analyze_vt(vt_data)
     score += vt_score
     details["virustotal"] = vt_details
 
-    # OpenTIP
     ot_score, ot_details = _analyze_opentip(opentip_data)
     score += ot_score
     details["opentip"] = ot_details
 
-    # TLD-анализ
     tld_score, tld_details = _analyze_domain_tld(final_url)
     score += tld_score
     details["tld"] = tld_details
     suspicious_tld = tld_details.get("suspicious_tld", False)
 
-    # Возраст домена через WHOIS
     try:
         hostname = urlparse(final_url).hostname or ""
         domain_age_days = get_domain_age_days(hostname)
@@ -564,22 +538,16 @@ def compute_risk_score(
         domain_age_details["young_domain"] = True
     details["domain_age"] = domain_age_details
 
-    # ========== ИСПРАВЛЕНИЕ: Проверка ОБОИХ URL для Brand Impersonation ==========
-    
-    # Обнаружение имитации брендов для FINAL URL
     brand_score_final, brand_flags_final = _detect_brand_abuse(final_url)
     
-    # Дополнительная проверка ORIGINAL URL (если отличается)
     brand_score_original = 0
     brand_flags_original = []
     if original_url and original_url != final_url:
         brand_score_original, brand_flags_original = _detect_brand_abuse(original_url)
     
-    # Берём максимальный балл
     brand_score = max(brand_score_final, brand_score_original)
     brand_flags = brand_flags_final + brand_flags_original
     
-    # Дедупликация флагов
     seen = set()
     unique_flags = []
     for flag in brand_flags:
@@ -593,12 +561,10 @@ def compute_risk_score(
     details["brand_abuse_flags"] = unique_flags
     has_brand_abuse = bool(unique_flags)
 
-    # ========== ИСПРАВЛЕНИЕ: Анализ подозрительных редиректов ==========
     redirect_score, redirect_details = _analyze_redirect(original_url, final_url)
     score += redirect_score
     details["redirect"] = redirect_details
 
-    # Определение подозрительного контекста
     vt_pos = vt_details.get("vt_positives") or 0
     ot_flags = ot_details.get("raw_flags", []) or []
     has_ti_alert = bool(vt_pos and vt_pos > 0) or any(
@@ -607,33 +573,28 @@ def compute_risk_score(
 
     suspicious_context = has_ti_alert or has_brand_abuse or suspicious_tld
 
-    # HTML-анализ
     html_score, html_details = _analyze_html(html_text, suspicious_context=suspicious_context)
     score += html_score
     details["html"] = html_details
 
-    # Сетевой анализ
     net_score, net_details = _analyze_network(network_data, final_url)
     score += net_score
     details["network"] = net_details
 
-    # Нормализация баллов
     if score < 0:
         score = 0
     if score > 100:
         score = 100
 
-    # Гарантия: Brand abuse → минимум "suspicious"
     if has_brand_abuse and score < 20:
         score = 20
 
-    # Определение вердикта
     if score < 20:
-        verdict = "legitimate"
+        verdict = "Легитимный"
     elif score < 50:
-        verdict = "suspicious"
+        verdict = "Подозрительный"
     else:
-        verdict = "malicious"
+        verdict = "Вредоносный"
 
     result = {
         "original_url": original_url,

@@ -2,27 +2,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-# Значения по умолчанию для числовых параметров,
-# такие же, как в описании диплома.
 DEFAULT_TIMEOUT = 10
 DEFAULT_THREADS = 4
 
 
 @dataclass
 class Config:
-    """
-    Конфигурация программного комплекса.
 
-    Параметры:
-        input_file      – путь к файлу со списком URL.
-        timeout         – тайм-аут загрузки страницы в секундах.
-        num_threads     – количество рабочих потоков.
-        capture_artifacts – собирать ли сетевые артефакты и SSL-параметры.
-        save_page_copy  – сохранять ли HTML-копию страницы.
-        check_redirection – проверять и фиксировать ли редиректы.
-        capture_screenshot – сохранять ли скриншот страницы (внутренний параметр).
-        output_root     – корневая папка для результатов.
-    """
     input_file: str = "data/sample.txt"
     timeout: int = DEFAULT_TIMEOUT
     num_threads: int = DEFAULT_THREADS
@@ -30,17 +16,13 @@ class Config:
     capture_artifacts: bool = True
     save_page_copy: bool = True
     check_redirection: bool = True
-    capture_screenshot: bool = True  # скриншоты всегда полезны
+    capture_screenshot: bool = True  
 
     output_root: str = "results"
 
 
 def config_from_args(args) -> Config:
-    """
-    Формирует объект Config на основе аргументов командной строки.
-    Аргументы задают начальные значения, которые затем можно
-    скорректировать в интерактивном диалоге.
-    """
+
     cfg = Config()
 
     if getattr(args, "input", None):
@@ -68,10 +50,7 @@ def config_from_args(args) -> Config:
 
 
 def _ask_yes_no(prompt: str, current: bool) -> bool:
-    """
-    Вспомогательная функция: задаёт вопрос вида [Y/n] и
-    возвращает булево значение, при пустом вводе оставляет current.
-    """
+
     default_str = "Y" if current else "n"
     answer = input(f"{prompt} [{default_str}/n]: ").strip().lower()
 
@@ -79,27 +58,15 @@ def _ask_yes_no(prompt: str, current: bool) -> bool:
         return True
     if answer in ("n", "no", "н", "нет", "0"):
         return False
-    # Пустой или непонятный ввод — оставляем текущее значение
+    
     return current
 
 
 def interactive_update_config(cfg: Config) -> Config:
-    """
-    Интерактивный диалог с пользователем для настройки параметров.
 
-    Пользователь вводит:
-      - флаг capture_artifacts: собирать сетевые события и SSL-параметры;
-      - флаг save_page_copy: сохранять HTML-документ страницы;
-      - флаг check_redirection: учитывать редиректы;
-      - timeout (секунды) и num_threads (число потоков).
-
-    При некорректном вводе числовых значений применяются значения
-    по умолчанию: timeout = 10, num_threads = 4.
-    """
     print("\n=== Настройка параметров работы комплекса ===")
     print("Нажмите Enter, чтобы оставить значение по умолчанию.\n")
 
-    # Флаги
     cfg.capture_artifacts = _ask_yes_no(
         "Выполнять сбор сетевых событий и SSL-параметров?",
         cfg.capture_artifacts,
@@ -115,7 +82,6 @@ def interactive_update_config(cfg: Config) -> Config:
         cfg.check_redirection,
     )
 
-    # Тайм-аут
     timeout_str = input(
         f"Введите тайм-аут загрузки страницы, сек (по умолчанию {DEFAULT_TIMEOUT}): "
     ).strip()
@@ -131,7 +97,6 @@ def interactive_update_config(cfg: Config) -> Config:
             print(f"Некорректное значение, используется {DEFAULT_TIMEOUT} сек.")
             cfg.timeout = DEFAULT_TIMEOUT
 
-    # Количество потоков
     threads_str = input(
         f"Введите количество рабочих потоков (по умолчанию {DEFAULT_THREADS}): "
     ).strip()

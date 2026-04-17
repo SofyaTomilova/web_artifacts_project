@@ -3,6 +3,10 @@
         "expected_domains": ["sberbank.ru", "sberbank.com", "online.sberbank.ru"],
         "legitimate_variations": ["sber.ru", "beta.sberbank.ru"]
     },
+    "sber": {
+        "expected_domains": ["sber.ru"],
+        "legitimate_variations": []
+    },
     "tinkoff": {
         "expected_domains": ["tinkoff.ru", "tbank.ru", "lk.tinkoff.ru"],
         "legitimate_variations": []
@@ -21,6 +25,14 @@
     },
     "raiffeisen": {
         "expected_domains": ["raiffeisen.ru"],
+        "legitimate_variations": []
+    },
+    "sberpay": {
+        "expected_domains": ["sberpay.ru"],
+        "legitimate_variations": []
+    },
+    "sbermegamarket": {
+        "expected_domains": ["sbermegamarket.ru"],
         "legitimate_variations": []
     },
 
@@ -49,6 +61,18 @@
         "expected_domains": ["nalog.ru", "nalog.gov.ru"],
         "legitimate_variations": []
     },
+    "gosuslugi_pfr": {
+        "expected_domains": ["pfr.gov.ru", "sfr.gov.ru"],
+        "legitimate_variations": []
+    },
+    "mos_ru": {
+        "expected_domains": ["mos.ru"],
+        "legitimate_variations": ["i.mos.ru", "my.mos.ru"]
+    },
+    "cbr": {
+        "expected_domains": ["cbr.ru"],
+        "legitimate_variations": []
+    },
 
     "vk": {
         "expected_domains": ["vk.com", "vk.ru", "m.vk.com"],
@@ -59,9 +83,9 @@
         "legitimate_variations": []
     },
 
-    "mail": {
-        "expected_domains": ["mail.ru"],
-        "legitimate_variations": []
+    "mailru": {
+        "expected_domains": ["mail.ru", "e.mail.ru", "my.mail.ru"],
+        "legitimate_variations": ["auth.mail.ru", "account.mail.ru"]
     },
 
     "qiwi": {
@@ -74,8 +98,8 @@
     },
 
     "steam": {
-        "expected_domains": ["steampowered.com"],
-        "legitimate_variations": []
+        "expected_domains": ["steampowered.com", "store.steampowered.com"],
+        "legitimate_variations": ["steamcommunity.com", "steamstatic.com", "steamcdn-a.akamaihd.net"]
     },
     "steamcommunity": {
         "expected_domains": ["steamcommunity.com"],

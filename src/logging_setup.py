@@ -5,11 +5,6 @@ from pathlib import Path
 
 
 def setup_logging(log_path: str | None = None) -> None:
-    """
-    Базовая конфигурация логирования.
-
-    Если log_path указан, логи пишутся и в файл, и в консоль.
-    """
     handlers: list[logging.Handler] = []
 
     console_handler = logging.StreamHandler()
